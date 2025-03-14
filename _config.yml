@@ -1,5 +1,12 @@
 title: Amol Prakash
-logo: assests/headshot_circle.png
-description: A Physician turned Informatician, Data Analyst, Data Scientist
+logo: assets/headshot_circle.png
+description: Doctor turned Informatician, Data Analyst, Data Scientist
 show_downloads: true
 theme: jekyll-theme-minimal
+
+download:
+  enabled: true
+  title: "Download My Resume"
+  files:
+    - name: "Resume"
+      link: "https://yourgithubusername.github.io/repository-name/resume.pdf"
