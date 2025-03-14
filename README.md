@@ -17,11 +17,11 @@ Healthcare Data Analyst with 3+ years of clinical and analytical experience. Hol
 
 ## Experience  
 
-### Data Analyst | Indiana University School of Medicine (*Aug 2024 - Present*)  
-### Research Assistant | PHLI Lab, Indiana University (*Aug 2024 - Present*)  
-### Data Analyst | BioHealth Institute Research Center (BHIRC), Indiana University (*Jan 2024 - Aug 2024*)  
-### Clinical Data Analyst | NCARF, India (*Sep 2023 - Jan 2024*)  
-### Emergency Doctor | District Hospital, India (*Jan 2018 - Feb 2023*)  
+- **Data Analyst** | Indiana University School of Medicine (*Aug 2024 - Present*)  
+- **Research Assistant** | PHLI Lab, Indiana University (*Aug 2024 - Present*)  
+- **Data Analyst** | BioHealth Institute Research Center (BHIRC), Indiana University (*Jan 2024 - Aug 2024*)  
+- **Clinical Data Analyst** | NCARF, India (*Sep 2023 - Jan 2024*)  
+- **Emergency Doctor** | District Hospital, India (*Jan 2018 - Feb 2023*)  
 
 ## Projects  
 
