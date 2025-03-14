@@ -2,10 +2,9 @@
 
 **amolprakash11@gmail.com** | [**LinkedIn**](https://www.linkedin.com/in/dr-amol-prakash-mbbs-mshi-6120aa11b/) | [**Tableau**](https://public.tableau.com/app/profile/amol.prakash8604/vizzes) | [**Leetcode**](https://leetcode.com/u/user0929aV/)
 
-## About Me  
 Healthcare Data Analyst with 3+ years of clinical and analytical experience. Holding an **M.S. in Health Informatics** from **Indiana University** and **M.B.B.S** degree from **Uzhhorod National University, Ukraine**. I specialize in **data analytics, machine learning, and healthcare technologies** to drive **data-driven improvements in patient care**.  
 
-### Technical Skills  
+## Technical Skills  
 - **Programming:** Python, SQL, R, Dart, Kotlin  
 - **Data Science & ML:** Scikit-learn, TensorFlow, PyTorch, XGBoost, Statsmodels  
 - **Healthcare Standards:** HL7, FHIR, LOINC, SNOMED, CDISC, OMOP, REDCap, HIPAA, SDTM, ADaM  
