@@ -11,7 +11,7 @@ Healthcare Data Analyst with 3+ years of clinical and analytical experience. Hol
 - **Tools & Platforms:** Tableau, Power BI, SPSS, Excel-Macros, RStudio, VS Code, Git, Anaconda   
 
 ## Education  
-- **M.S. Health Informatics**, Indiana University (*May 2025*)  
+- **M.S. Health Informatics**, Indiana University, Indianapolis, United States (*May 2025*)  
 - **M.B.B.S.**, Uzhhorod National University, Ukraine (*June 2017*)  
 
 ## Experience  
