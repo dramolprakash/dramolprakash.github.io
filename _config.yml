@@ -1,6 +1,6 @@
-title: Amol Prakash
-logo: assests/headshot_circle.png
-description: Doctor turned Informatician, Data Analyst, Data Scientist
+title: "Amol Prakash | Doctor & Data Scientist"
+logo: assets/headshot_circle.png
+description: "Doctor turned Informatician | Data Analyst | Data Scientist"
 show_downloads: false
 theme: jekyll-theme-minimal
 
@@ -10,3 +10,8 @@ download:
   files:
     - name: "Resume"
       link: "https://yourgithubusername.github.io/repository-name/resume.pdf"
+
+social_links:
+  github: "https://github.com/yourgithubusername"
+  linkedin: "https://linkedin.com/in/yourlinkedinprofile"
+  twitter: "https://twitter.com/yourtwitterhandle"
