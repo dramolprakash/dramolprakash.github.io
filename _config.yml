@@ -10,8 +10,3 @@ download:
   files:
     - name: "Resume"
       link: "https://yourgithubusername.github.io/repository-name/resume.pdf"
-
-social_links:
-  github: "https://github.com/yourgithubusername"
-  linkedin: "https://linkedin.com/in/yourlinkedinprofile"
-  twitter: "https://twitter.com/yourtwitterhandle"
