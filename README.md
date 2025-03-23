@@ -1,35 +1,36 @@
-# Research Data Analyst | Aspiring Data Scientist | Internationally Trained Doctor  
+# Healthcare Data Analyst | Health Informatics | AI in Medicine  
 
-**amolprakash11@gmail.com** | [**LinkedIn**](https://www.linkedin.com/in/dr-amol-prakash-mbbs-mshi-6120aa11b/) | [**Tableau**](https://public.tableau.com/app/profile/amol.prakash8604/vizzes) | [**Leetcode**](https://leetcode.com/u/user0929aV/)
+📩 **amolprakash11@gmail.com** | [**LinkedIn**](https://www.linkedin.com/in/dr-amol-prakash-mbbs-mshi-6120aa11b/) | [**Tableau**](https://public.tableau.com/app/profile/amol.prakash8604/vizzes) | [**Leetcode**](https://leetcode.com/u/user0929aV/)  
 
-Healthcare Data Analyst with 3+ years of clinical and analytical experience. Holding an **M.S. in Health Informatics** from **Indiana University** and **M.B.B.S** degree from **Uzhhorod National University, Ukraine**. I specialize in **data analytics, machine learning, and healthcare technologies** to drive **data-driven improvements in patient care**.  
+🚀 Healthcare Data Analyst with **3+ years** of clinical expertise and data-driven decision-making. Holding an **M.S. in Health Informatics (Indiana University)** and **M.B.B.S (Uzhhorod National University, Ukraine)**. Passionate about **AI in healthcare**, **predictive modeling**, and **data analytics** to enhance **patient outcomes and operational efficiency**.  
 
-## Technical Skills  
-- **Programming:** Python, SQL, R, Dart, Kotlin  
-- **Data Science & ML:** Scikit-learn, TensorFlow, PyTorch, XGBoost, Statsmodels  
-- **Healthcare Standards:** HL7, FHIR, LOINC, SNOMED, CDISC, OMOP, REDCap, HIPAA, SDTM, ADaM  
-- **Tools & Platforms:** Tableau, Power BI, SPSS, Excel-Macros, RStudio, VS Code, Git, Anaconda   
+## 🔹 Technical Skills  
+✅ **Programming:** Python (Pandas, NumPy), SQL, R, Dart, Kotlin  
+✅ **Data Science & ML:** Scikit-learn, TensorFlow, PyTorch, XGBoost, NLP, Predictive Analytics  
+✅ **Healthcare Standards:** HL7, FHIR, LOINC, SNOMED, CDISC, OMOP, REDCap, HIPAA, SDTM, ADaM  
+✅ **Tools & Platforms:** Tableau, Power BI, SPSS, Excel (Macros & VBA), Git, Anaconda  
 
-## Education  
-- **M.S. Health Informatics**, Indiana University, Indianapolis, United States (*May 2025*)  
+## 🎓 Education  
+- **M.S. Health Informatics**, Indiana University (*May 2025*)  
+  - Coursework: Machine Learning in Healthcare, Data Analytics, Health IT, NLP in Medicine  
 - **M.B.B.S.**, Uzhhorod National University, Ukraine (*June 2017*)  
 
-## Experience  
+## 💼 Experience  
+🔹 **Data Analyst** | Indiana University School of Medicine (*Aug 2024 - Present*)  
+- Developed **predictive models** for patient readmission using **Python & SQL**  
+- Automated **FHIR-based EHR data extraction**, reducing processing time by **30%**  
 
-- **Data Analyst** | Indiana University School of Medicine (*Aug 2024 - Present*)  
-- **Research Assistant** | PHLI Lab, Indiana University (*Aug 2024 - Present*)  
-- **Data Analyst** | BioHealth Institute Research Center (BHIRC), Indiana University (*Jan 2024 - Aug 2024*)  
-- **Clinical Data Analyst** | NCARF, India (*Sep 2023 - Jan 2024*)  
-- **Emergency Doctor** | District Hospital, India (*Jan 2018 - Feb 2023*)  
+🔹 **Research Assistant** | PHLI Lab, Indiana University (*Aug 2024 - Present*)  
+- Conducting **ML-based clinical decision support** research  
+- Led **data cleaning & preprocessing** for **AI-driven risk prediction**  
 
-## Projects  
+## 🔬 Projects  
+🔹 **PillPal - Medication Adherence Tool** ([GitHub](https://github.com/dramolprakash/PillPal-App))  
+- Built using **Dart, Firebase, and Flask API** for smart adherence tracking  
 
-- **NeoRoo - Neonatal mHealth App** ([LibreHealth](https://gitlab.com/librehealth/incubating-projects/mhbs/lh-mhbs-neoroo))  
-- **PillPal - Medication Adherence Tool** ([GitHub](https://github.com/dramolprakash/PillPal-App))  
-- **Cardiovascular Disease Prediction using ML** ([GitHub](https://github.com/dramolprakash/Cardiovascular-disease-prediction-ML-project-by-Dr.-Amol-Prakash))  
-- **Bone Fracture Prediction using ML** ([GitHub](https://github.com/dramolprakash/Predicting-Bone-Fractures-through-Machine-Learning-by-Dr.Amol-Prakash))  
+🔹 **Cardiovascular Disease Prediction (ML)** ([GitHub](https://github.com/dramolprakash/Cardiovascular-disease-prediction-ML-project-by-Dr.-Amol-Prakash))  
+- **XGBoost-based model** achieving **90% accuracy**, using **SHAP for explainability**  
 
-## Volunteering & Awards  
-- **Student Volunteer**, AMIA Annual Symposium (*Nov 2024*)  
-- **Best Group Project**, INFO B581 Health Informatics Standards (*Jan 2024*)  
-- **Alumni Relations Lead**, DesiJags Indian Students Association, IU (*Jul 2023*)
+## 🏆 Volunteering & Awards  
+🎤 **Student Volunteer**, AMIA Annual Symposium (*Nov 2024*)  
+🏆 **Best Group Project**, INFO B581 Health Informatics Standards (*Jan 2024*)  
