@@ -1,5 +1,13 @@
-title: Amol Prakash | MS Health Informatics"
-logo: /assets/img/headshot_circle.png
-#description: text below image
-show_downloads: true
+title: "Amol Prakash | Doctor & Data Scientist"
+logo: assets/headshot_circle.png
+description: "Doctor turned Informatician | Data Analyst | Data Scientist"
+show_downloads: false
 theme: jekyll-theme-minimal
+
+download:
+  enabled: false
+  title: "Download My Resume"
+  files:
+    - name: "Resume"
+      link: "https://yourgithubusername.github.io/repository-name/resume.pdf"
+
