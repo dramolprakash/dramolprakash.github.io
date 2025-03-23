@@ -1,12 +1,5 @@
-title: "Amol Prakash | Doctor & Data Scientist"
-logo: assets/headshot_circle.png
-description: "Doctor turned Informatician | Data Analyst | Data Scientist"
-show_downloads: false
+title: Shaw Talebi
+logo: /assets/img/headshot_circle.png
+#description: text below image
+show_downloads: true
 theme: jekyll-theme-minimal
-
-download:
-  enabled: true
-  title: "Download My Resume"
-  files:
-    - name: "Resume"
-      link: "https://yourgithubusername.github.io/repository-name/resume.pdf"
