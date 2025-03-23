@@ -16,13 +16,11 @@
 - **M.B.B.S.**, Uzhhorod National University, Ukraine (*June 2017*)  
 
 ## 💼 Experience  
-🔹 **Data Analyst** | Indiana University School of Medicine (*Aug 2024 - Present*)  
-- Developed **predictive models** for patient readmission using **Python & SQL**  
-- Automated **FHIR-based EHR data extraction**, reducing processing time by **30%**  
-
-🔹 **Research Assistant** | PLHI Lab, Indiana University (*Aug 2024 - Present*)  
-- Conducting **ML-based clinical decision support** research  
-- Led **data cleaning & preprocessing** for **AI-driven risk prediction**  
+🔹**Data Analyst** | Indiana University School of Medicine (*Aug 2024 - Present*)  
+🔹**Research Assistant** | PHLI Lab, Indiana University (*Aug 2024 - Present*)  
+🔹**Data Analyst** | BioHealth Institute Research Center (BHIRC), Indiana University (*Jan 2024 - Aug 2024*)  
+🔹**Clinical Data Analyst** | NCARF, India (*Sep 2023 - Jan 2024*)  
+🔹**Emergency Doctor** | District Hospital, India (*Jan 2018 - Feb 2023*)    
 
 ## 🔬 Projects  
 🔹 **PillPal - Medication Adherence Tool** ([GitHub](https://github.com/dramolprakash/PillPal-App))  
