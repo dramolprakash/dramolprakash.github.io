@@ -20,7 +20,7 @@
 - Developed **predictive models** for patient readmission using **Python & SQL**  
 - Automated **FHIR-based EHR data extraction**, reducing processing time by **30%**  
 
-🔹 **Research Assistant** | PHLI Lab, Indiana University (*Aug 2024 - Present*)  
+🔹 **Research Assistant** | PLHI Lab, Indiana University (*Aug 2024 - Present*)  
 - Conducting **ML-based clinical decision support** research  
 - Led **data cleaning & preprocessing** for **AI-driven risk prediction**  
 
