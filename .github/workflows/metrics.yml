@@ -1,18 +1,19 @@
 name: Generate Isometric Commit Calendar
 
 on:
-  schedule: [{ cron: "0 0 * * 1" }] # every Monday
-  workflow_dispatch:               # manual trigger
+  schedule:
+    - cron: "0 0 * * 1"      # Runs every Monday at midnight UTC
+  workflow_dispatch:         # Enables manual triggering from GitHub UI
 
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate metrics
+      - name: Generate GitHub metrics
         uses: lowlighter/metrics@latest
         with:
-          filename: assets/isocalendar.svg    # <-- This MUST match exactly
-          token: ${{ secrets.METRICS_TOKEN }} # <-- Token with `repo` scope
+          filename: assets/isocalendar.svg
+          token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
