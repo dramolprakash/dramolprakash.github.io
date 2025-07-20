@@ -4,6 +4,10 @@
 
 🚀 Healthcare Data Analyst with **3+ years** of clinical expertise and data-driven decision-making. Holding an **M.S. in Health Informatics (Indiana University)** and **M.B.B.S (Uzhhorod National University, Ukraine)**. Passionate about **AI in healthcare**, **predictive modeling**, and **data analytics** to enhance **patient outcomes and operational efficiency**.  
 
+## 📅 GitHub Activity Calendar
+
+<img src="assets/isocalendar.svg" alt="GitHub Isometric Calendar" />
+
 ## 🔹 Technical Skills  
 ✅ **Programming:** Python (Pandas, NumPy), SQL, R, Dart, Kotlin  
 ✅ **Data Science & ML:** Scikit-learn, TensorFlow, PyTorch, XGBoost, NLP, Predictive Analytics  
