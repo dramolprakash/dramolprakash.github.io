@@ -6,7 +6,7 @@
 
 ## 📅 GitHub Activity Calendar
 
-<img src="assets/isocalendar.svg" alt="GitHub Isometric Calendar" />
+<img src="https://raw.githubusercontent.com/dramolprakash/dramolprakash.github.io/main/assets/isocalendar.svg" alt="GitHub Isometric Calendar" />
 
 ## 🔹 Technical Skills  
 ✅ **Programming:** Python (Pandas, NumPy), SQL, R, Dart, Kotlin  
