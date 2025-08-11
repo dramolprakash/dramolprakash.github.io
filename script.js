@@ -175,27 +175,30 @@ document.querySelectorAll('.project-card').forEach(card => {
     });
 });
 
-// Hero title animation - fade in and slide up
-window.addEventListener('load', () => {
-    const heroTitle = document.querySelector('.hero-title');
-    const heroSubtitle = document.querySelector('.hero-subtitle');
-    const heroStats = document.querySelector('.hero-stats');
-    const heroCta = document.querySelector('.hero-cta');
-    
-    // Set initial states
-    [heroTitle, heroSubtitle, heroStats, heroCta].forEach((element, index) => {
-        if (element) {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(30px)';
-            element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            
-            // Animate with staggered delays
-            setTimeout(() => {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }, 300 + (index * 200));
-        }
-    });
+// Hero section animation - fade in and slide up
+document.addEventListener('DOMContentLoaded', () => {
+    // Wait a bit longer to ensure DOM is fully ready
+    setTimeout(() => {
+        const heroTitle = document.querySelector('.hero-title');
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        const heroStats = document.querySelector('.hero-stats');
+        const heroCta = document.querySelector('.hero-cta');
+        
+        // Set initial states
+        [heroTitle, heroSubtitle, heroStats, heroCta].forEach((element, index) => {
+            if (element) {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                
+                // Animate with staggered delays
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 100 + (index * 200));
+            }
+        });
+    }, 100);
 });
 
 // Parallax effect for hero section
