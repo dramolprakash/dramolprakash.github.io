@@ -1,13 +1,43 @@
-title: "Amol Prakash"
-logo: assets/headshot_circle.png
-description: "Doctor turned Informatician | Data Analyst | Data Scientist"
-show_downloads: false
-theme: jekyll-theme-minimal
+title: "Dr. Amol Prakash - Healthcare Data Analyst"
+description: "Healthcare Data Analyst | Health Informatics | AI in Medicine - Transforming healthcare through data-driven insights"
+url: "https://dramolprakash.github.io"
+baseurl: ""
 
-download:
-  enabled: false
-  title: "Download My Resume"
-  files:
-    - name: "Resume"
-      link: "https://yourgithubusername.github.io/repository-name/resume.pdf"
+# Author information
+author:
+  name: "Dr. Amol Prakash"
+  email: "amolprakash11@gmail.com"
+  bio: "Doctor turned Informatician with expertise in healthcare data analytics, AI in medicine, and health informatics"
+  location: "United States"
+  
+# Social links
+social:
+  linkedin: "https://www.linkedin.com/in/dr-amol-prakash-mbbs-mshi-6120aa11b/"
+  github: "https://github.com/dramolprakash"
+  tableau: "https://public.tableau.com/app/profile/amol.prakash8604/vizzes"
+  leetcode: "https://leetcode.com/u/user0929aV/"
+
+# SEO settings
+lang: "en-US"
+logo: assets/headshot_circle.png
+
+# Portfolio settings
+show_excerpts: false
+show_downloads: false
+
+# GitHub Pages settings
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - package.json
+  - package-lock.json
 
