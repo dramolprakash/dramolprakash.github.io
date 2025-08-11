@@ -181,13 +181,27 @@ body {
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal), var(--healthcare-green));
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -moz-background-clip: text;
     -moz-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .hero-subtitle {

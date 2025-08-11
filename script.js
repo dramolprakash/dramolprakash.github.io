@@ -175,31 +175,27 @@ document.querySelectorAll('.project-card').forEach(card => {
     });
 });
 
-// Typing effect for hero title
-const typeWriter = (element, text, speed = 100) => {
-    let i = 0;
-    element.innerHTML = '';
-    
-    const typing = () => {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typing, speed);
-        }
-    };
-    
-    typing();
-};
-
-// Initialize typing effect on page load
+// Hero title animation - fade in and slide up
 window.addEventListener('load', () => {
     const heroTitle = document.querySelector('.hero-title');
-    const originalText = heroTitle.innerHTML;
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    const heroStats = document.querySelector('.hero-stats');
+    const heroCta = document.querySelector('.hero-cta');
     
-    // Add a delay before starting the typing effect
-    setTimeout(() => {
-        typeWriter(heroTitle, originalText, 50);
-    }, 500);
+    // Set initial states
+    [heroTitle, heroSubtitle, heroStats, heroCta].forEach((element, index) => {
+        if (element) {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            
+            // Animate with staggered delays
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, 300 + (index * 200));
+        }
+    });
 });
 
 // Parallax effect for hero section
