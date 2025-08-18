@@ -170,9 +170,7 @@ body {
     border: 1px solid #333;
     position: relative;
     max-width: 100%;
-    overflow: auto;
-    min-height: 180px;
-    height: 180px;
+    overflow: hidden;
 }
 
 .typing-header {
@@ -231,9 +229,8 @@ body {
     outline: none;
     resize: none;
     flex: 1;
-    min-height: 100px;
-    height: 100px;
-    overflow: auto;
+    min-height: 2.5rem;
+    overflow: hidden;
     white-space: pre-wrap;
     word-wrap: break-word;
     display: inline-block;
@@ -281,14 +278,11 @@ body {
         padding: 1.5rem 1rem;
         margin-bottom: 1.5rem;
         border-radius: 8px;
-        min-height: 160px;
-        height: 160px;
     }
     
     .typing-text {
         font-size: clamp(1rem, 5vw, 1.4rem);
-        min-height: 85px;
-        height: 85px;
+        min-height: 2rem;
         line-height: 1.3;
     }
     
@@ -312,14 +306,11 @@ body {
         padding: 1rem 0.75rem;
         border-radius: 6px;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        min-height: 140px;
-        height: 140px;
     }
     
     .typing-text {
         font-size: clamp(0.9rem, 5.5vw, 1.2rem);
-        min-height: 75px;
-        height: 75px;
+        min-height: 1.5rem;
         line-height: 1.25;
     }
     
@@ -352,14 +343,11 @@ body {
 @media (max-width: 320px) {
     .typing-container {
         padding: 0.75rem 0.5rem;
-        min-height: 120px;
-        height: 120px;
     }
     
     .typing-text {
         font-size: clamp(0.8rem, 6vw, 1rem);
-        min-height: 65px;
-        height: 65px;
+        min-height: 1.2rem;
     }
     
     .typing-content {
