@@ -3,12 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dr. Amol Prakash - Healthcare Data Analyst with 3+ years clinical experience, specializing in AI in healthcare, predictive modeling, and data-driven decision making to enhance patient outcomes.">
+    <meta name="keywords" content="healthcare data analyst, health informatics, clinical data analysis, medical AI, healthcare technology, FHIR, HL7, predictive modeling">
+    <meta name="author" content="Dr. Amol Prakash">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dramolprakash.github.io/">
+    <meta property="og:title" content="Dr. Amol Prakash - Healthcare Data Analyst">
+    <meta property="og:description" content="Healthcare Data Analyst with 3+ years clinical experience, specializing in AI in healthcare, predictive modeling, and data-driven decision making.">
+    <meta property="og:image" content="https://dramolprakash.github.io/assets/headshot_circle.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://dramolprakash.github.io/">
+    <meta property="twitter:title" content="Dr. Amol Prakash - Healthcare Data Analyst">
+    <meta property="twitter:description" content="Healthcare Data Analyst with 3+ years clinical experience, specializing in AI in healthcare, predictive modeling, and data-driven decision making.">
+    <meta property="twitter:image" content="https://dramolprakash.github.io/assets/headshot_circle.png">
+    
     <title>Dr. Amol Prakash - Healthcare Data Analyst</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="minimal-overrides.css">
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -24,6 +48,12 @@
                 <li class="nav-item"><a href="#awards" class="nav-link">Awards</a></li>
                 <li class="nav-item"><a href="#activities" class="nav-link">Activities</a></li>
                 <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                <li class="nav-item">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                        <span class="sun-icon">☀️</span>
+                        <span class="moon-icon">🌙</span>
+                    </button>
+                </li>
             </ul>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -507,38 +537,11 @@
                             </div>
                         </div>
                         <div class="github-stat">
-                            <i class="fas fa-code-branch"></i>
-                            <div class="stat-info">
-                                <span class="stat-number" id="github-contributions">-</span>
-                                <span class="stat-label">Contributions This Year</span>
-                            </div>
-                        </div>
-                        <div class="github-stat">
                             <i class="fas fa-star"></i>
                             <div class="stat-info">
                                 <span class="stat-number" id="github-stars">-</span>
                                 <span class="stat-label">Stars Earned</span>
                             </div>
-                        </div>
-                    </div>
-                    <div class="contributions-graph">
-                        <h4>Contribution Activity (Simulated Pattern)</h4>
-                        <div id="github-graph" class="graph-container">
-                            <div class="loading-graph">
-                                <i class="fas fa-spinner fa-spin"></i>
-                                <p>Loading contribution graph...</p>
-                            </div>
-                        </div>
-                        <div class="graph-legend">
-                            <span>Less</span>
-                            <div class="legend-colors">
-                                <div class="legend-color level-0"></div>
-                                <div class="legend-color level-1"></div>
-                                <div class="legend-color level-2"></div>
-                                <div class="legend-color level-3"></div>
-                                <div class="legend-color level-4"></div>
-                            </div>
-                            <span>More</span>
                         </div>
                     </div>
                     <div class="github-link">

@@ -2,15 +2,19 @@
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+}
 
 // Close mobile menu when clicking on a link
 document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-    hamburger.classList.remove('active');
-    navMenu.classList.remove('active');
+    if (hamburger && navMenu) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    }
 }));
 
 // Smooth scrolling for navigation links
@@ -283,21 +287,68 @@ const handleContactForm = (e) => {
     console.log('Contact form submitted');
 };
 
-// Theme toggle (optional feature for future enhancement)
-const toggleTheme = () => {
-    document.body.classList.toggle('dark-theme');
-    localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+// Legacy theme toggle - removed to avoid conflicts
+
+// Enhanced Theme Toggle
+const initTheme = () => {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeToggle(savedTheme);
 };
 
-// Initialize theme from localStorage
-const initTheme = () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-theme');
+const toggleTheme = () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeToggle(newTheme);
+};
+
+const updateThemeToggle = (theme) => {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.setAttribute('aria-label', 
+            theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+        );
     }
 };
 
-// Call theme initialization
+// Custom Cursor
+const initCursor = () => {
+    const cursor = document.getElementById('cursor');
+    const interactiveElements = document.querySelectorAll('a, button, .nav-link, .project-card, .skill-tag');
+    
+    if (!cursor) return;
+    
+    // Mouse move handler
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+    
+    // Hover effects for interactive elements
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.classList.add('hover');
+        });
+        
+        el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('hover');
+        });
+    });
+    
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+    });
+    
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+    });
+};
+
+// Initialize on DOM load
 initTheme();
 
 // Add scroll progress indicator
@@ -356,14 +407,24 @@ const addEmailCopy = () => {
                     showToast('Email copied to clipboard!');
                 });
             } else {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = email;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showToast('Email copied to clipboard!');
+                // Fallback for older browsers (deprecated but still functional)
+                try {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = email;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    const successful = document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    if (successful) {
+                        showToast('Email copied to clipboard!');
+                    } else {
+                        showToast('Copy failed. Please copy manually: ' + email);
+                    }
+                } catch (err) {
+                    showToast('Copy not supported. Email: ' + email);
+                }
             }
         });
     });
@@ -609,117 +670,10 @@ const fetchGitHubStats = async () => {
     }
 };
 
-// Generate contributions graph
-const generateContributionsGraph = () => {
-    const graphContainer = document.getElementById('github-graph');
-    const currentDate = new Date();
-    const oneYearAgo = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate());
-    
-    // Clear loading
-    graphContainer.innerHTML = '';
-    
-    // Create grid container
-    const grid = document.createElement('div');
-    grid.className = 'contribution-grid';
-    
-    // Generate realistic contribution pattern
-    const contributions = generateContributionData(oneYearAgo, currentDate);
-    let totalContributions = 0;
-    
-    // Create tooltip
-    const tooltip = document.createElement('div');
-    tooltip.className = 'tooltip';
-    document.body.appendChild(tooltip);
-    
-    // Generate days
-    for (let date = new Date(oneYearAgo); date <= currentDate; date.setDate(date.getDate() + 1)) {
-        const dayElement = document.createElement('div');
-        dayElement.className = 'contribution-day';
-        
-        const dateString = date.toISOString().split('T')[0];
-        const contributionCount = contributions[dateString] || 0;
-        totalContributions += contributionCount;
-        
-        // Set contribution level (0-4)
-        let level = 0;
-        if (contributionCount > 0) level = 1;
-        if (contributionCount > 3) level = 2;
-        if (contributionCount > 6) level = 3;
-        if (contributionCount > 10) level = 4;
-        
-        dayElement.classList.add(`level-${level}`);
-        dayElement.setAttribute('data-date', dateString);
-        dayElement.setAttribute('data-count', contributionCount);
-        
-        // Add hover effect
-        dayElement.addEventListener('mouseenter', (e) => {
-            const rect = e.target.getBoundingClientRect();
-            const formattedDate = new Date(dateString).toLocaleDateString('en-US', {
-                weekday: 'short',
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
-            
-            tooltip.innerHTML = `${contributionCount} contributions on ${formattedDate}`;
-            tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
-            tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
-            tooltip.classList.add('show');
-        });
-        
-        dayElement.addEventListener('mouseleave', () => {
-            tooltip.classList.remove('show');
-        });
-        
-        grid.appendChild(dayElement);
-    }
-    
-    graphContainer.appendChild(grid);
-    
-    // Update total contributions
-    document.getElementById('github-contributions').textContent = totalContributions;
-};
-
-// Generate realistic contribution data
-const generateContributionData = (startDate, endDate) => {
-    const contributions = {};
-    
-    for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)) {
-        const dateString = date.toISOString().split('T')[0];
-        const dayOfWeek = date.getDay();
-        const month = date.getMonth();
-        
-        // Create realistic patterns
-        let baseContribution = 0;
-        
-        // More active on weekdays
-        if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-            baseContribution = Math.random() > 0.3 ? Math.floor(Math.random() * 8) + 1 : 0;
-        } else {
-            // Weekend activity
-            baseContribution = Math.random() > 0.7 ? Math.floor(Math.random() * 4) + 1 : 0;
-        }
-        
-        // Some months more active (simulating work periods)
-        if ([2, 3, 4, 8, 9, 10].includes(month)) {
-            baseContribution = Math.floor(baseContribution * 1.5);
-        }
-        
-        // Add some random high-activity days
-        if (Math.random() > 0.95) {
-            baseContribution += Math.floor(Math.random() * 10) + 5;
-        }
-        
-        contributions[dateString] = Math.min(baseContribution, 15); // Cap at 15
-    }
-    
-    return contributions;
-};
 
 // Initialize GitHub section
 const initializeGitHub = () => {
     fetchGitHubStats();
-    generateContributionsGraph();
     
     // Add animation to GitHub stats
     const githubStats = document.querySelectorAll('.github-stat');
@@ -737,6 +691,15 @@ const initializeGitHub = () => {
 
 // Initialize Medium articles and GitHub when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize theme and cursor
+    initCursor();
+    
+    // Theme toggle event listener
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+    
     // Add a small delay to ensure other animations complete first
     setTimeout(() => {
         fetchMediumArticles();

@@ -1,0 +1,227 @@
+/* Minimalist Design Overrides */
+
+/* Override old color variables with new minimalist colors */
+:root {
+    /* Override old variables */
+    --primary-blue: var(--accent);
+    --secondary-blue: var(--text-secondary);
+    --accent-teal: var(--accent);
+    --light-blue: var(--accent-light);
+    --healthcare-green: var(--accent);
+    --warning-orange: var(--text-secondary);
+    --white: var(--bg-primary);
+    --light-gray: var(--bg-secondary);
+    --gray-100: var(--bg-tertiary);
+    --gray-200: var(--border-primary);
+    --gray-300: var(--border-secondary);
+    --gray-400: var(--text-tertiary);
+    --gray-500: var(--text-secondary);
+    --gray-600: var(--text-secondary);
+    --gray-700: var(--text-primary);
+    --gray-800: var(--text-primary);
+    --gray-900: var(--text-primary);
+}
+
+/* Global section styling */
+section {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-primary);
+}
+
+section:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+/* Section headers */
+.section-title {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* Cards and containers */
+.about,
+.skills,
+.experience,
+.projects,
+.publications,
+.articles,
+.awards,
+.activities,
+.contact {
+    background: var(--bg-primary);
+}
+
+.about:nth-child(even),
+.skills:nth-child(even),
+.experience:nth-child(even),
+.projects:nth-child(even),
+.publications:nth-child(even),
+.articles:nth-child(even),
+.awards:nth-child(even),
+.activities:nth-child(even),
+.contact:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+/* Project cards */
+.project-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
+}
+
+.project-card:hover {
+    border-color: var(--border-secondary);
+    box-shadow: var(--shadow-md);
+}
+
+/* Skill tags */
+.skill-tag,
+.tech-tag {
+    background: var(--accent-light);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+}
+
+/* Timeline items */
+.timeline-item {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+}
+
+.timeline-date {
+    color: var(--text-tertiary);
+}
+
+/* Articles */
+.article-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+}
+
+.article-title a {
+    color: var(--text-primary);
+}
+
+.article-meta {
+    color: var(--text-secondary);
+}
+
+.article-excerpt {
+    color: var(--text-secondary);
+}
+
+.article-tag {
+    background: var(--accent-light);
+    color: var(--text-primary);
+}
+
+/* GitHub section */
+.github-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+}
+
+.github-stat {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+}
+
+/* General text colors */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+}
+
+p {
+    color: var(--text-secondary);
+}
+
+/* Links */
+a {
+    color: var(--text-primary);
+}
+
+a:hover {
+    color: var(--text-secondary);
+}
+
+/* Forms and inputs */
+input, textarea, select {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--border-secondary);
+    outline: none;
+}
+
+/* Mobile Navigation (Missing Styles) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.hamburger .bar {
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    transition: var(--transition);
+    border-radius: 2px;
+}
+
+.hamburger.active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 4rem;
+        right: -100%;
+        width: 100%;
+        background: var(--bg-primary);
+        border-top: 1px solid var(--border-primary);
+        flex-direction: column;
+        text-align: center;
+        transition: var(--transition);
+        padding: 2rem 0;
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .nav-item {
+        margin: 1rem 0;
+    }
+    
+    .nav-link {
+        font-size: var(--font-size-lg);
+        padding: 1rem;
+        display: block;
+    }
+}
