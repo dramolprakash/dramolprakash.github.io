@@ -864,13 +864,13 @@ const initializeTypingAnimation = () => {
                 pauseAfter: 'medium'
             },
             {
-                text: "Hi, I'm a graduate with MS in Health Informatics",
-                keepText: 8,
+                text: "I hold a Master's of Health Informatics from Indiana University",
+                keepText: 0,
                 pauseAfter: 'medium'
             },
             {
-                text: "Hi, I'm proficient in SQL, Python & Healthcare Analytics",
-                keepText: 8,
+                text: "I am proficient in SQL, Python, R, Tableau, Power BI and healthcare analytics",
+                keepText: 0,
                 pauseAfter: 'medium'
             },
             {
