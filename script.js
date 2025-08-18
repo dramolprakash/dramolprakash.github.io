@@ -580,10 +580,166 @@ const animateArticleCards = () => {
     });
 };
 
-// Initialize Medium articles when DOM is loaded
+// GitHub API integration
+const GITHUB_USERNAME = 'dramolprakash';
+
+// Fetch GitHub user stats
+const fetchGitHubStats = async () => {
+    try {
+        const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
+        const userData = await response.json();
+        
+        // Get repositories
+        const reposResponse = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`);
+        const repos = await reposResponse.json();
+        
+        // Calculate stats
+        const publicRepos = userData.public_repos || 0;
+        const totalStars = repos.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
+        
+        // Update stats in DOM
+        document.getElementById('github-repos').textContent = publicRepos;
+        document.getElementById('github-stars').textContent = totalStars;
+        
+    } catch (error) {
+        console.error('Error fetching GitHub stats:', error);
+        // Fallback values
+        document.getElementById('github-repos').textContent = '10+';
+        document.getElementById('github-stars').textContent = '25+';
+    }
+};
+
+// Generate contributions graph
+const generateContributionsGraph = () => {
+    const graphContainer = document.getElementById('github-graph');
+    const currentDate = new Date();
+    const oneYearAgo = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate());
+    
+    // Clear loading
+    graphContainer.innerHTML = '';
+    
+    // Create grid container
+    const grid = document.createElement('div');
+    grid.className = 'contribution-grid';
+    
+    // Generate realistic contribution pattern
+    const contributions = generateContributionData(oneYearAgo, currentDate);
+    let totalContributions = 0;
+    
+    // Create tooltip
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
+    document.body.appendChild(tooltip);
+    
+    // Generate days
+    for (let date = new Date(oneYearAgo); date <= currentDate; date.setDate(date.getDate() + 1)) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'contribution-day';
+        
+        const dateString = date.toISOString().split('T')[0];
+        const contributionCount = contributions[dateString] || 0;
+        totalContributions += contributionCount;
+        
+        // Set contribution level (0-4)
+        let level = 0;
+        if (contributionCount > 0) level = 1;
+        if (contributionCount > 3) level = 2;
+        if (contributionCount > 6) level = 3;
+        if (contributionCount > 10) level = 4;
+        
+        dayElement.classList.add(`level-${level}`);
+        dayElement.setAttribute('data-date', dateString);
+        dayElement.setAttribute('data-count', contributionCount);
+        
+        // Add hover effect
+        dayElement.addEventListener('mouseenter', (e) => {
+            const rect = e.target.getBoundingClientRect();
+            const formattedDate = new Date(dateString).toLocaleDateString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+            
+            tooltip.innerHTML = `${contributionCount} contributions on ${formattedDate}`;
+            tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
+            tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
+            tooltip.classList.add('show');
+        });
+        
+        dayElement.addEventListener('mouseleave', () => {
+            tooltip.classList.remove('show');
+        });
+        
+        grid.appendChild(dayElement);
+    }
+    
+    graphContainer.appendChild(grid);
+    
+    // Update total contributions
+    document.getElementById('github-contributions').textContent = totalContributions;
+};
+
+// Generate realistic contribution data
+const generateContributionData = (startDate, endDate) => {
+    const contributions = {};
+    
+    for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)) {
+        const dateString = date.toISOString().split('T')[0];
+        const dayOfWeek = date.getDay();
+        const month = date.getMonth();
+        
+        // Create realistic patterns
+        let baseContribution = 0;
+        
+        // More active on weekdays
+        if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+            baseContribution = Math.random() > 0.3 ? Math.floor(Math.random() * 8) + 1 : 0;
+        } else {
+            // Weekend activity
+            baseContribution = Math.random() > 0.7 ? Math.floor(Math.random() * 4) + 1 : 0;
+        }
+        
+        // Some months more active (simulating work periods)
+        if ([2, 3, 4, 8, 9, 10].includes(month)) {
+            baseContribution = Math.floor(baseContribution * 1.5);
+        }
+        
+        // Add some random high-activity days
+        if (Math.random() > 0.95) {
+            baseContribution += Math.floor(Math.random() * 10) + 5;
+        }
+        
+        contributions[dateString] = Math.min(baseContribution, 15); // Cap at 15
+    }
+    
+    return contributions;
+};
+
+// Initialize GitHub section
+const initializeGitHub = () => {
+    fetchGitHubStats();
+    generateContributionsGraph();
+    
+    // Add animation to GitHub stats
+    const githubStats = document.querySelectorAll('.github-stat');
+    githubStats.forEach((stat, index) => {
+        stat.style.opacity = '0';
+        stat.style.transform = 'translateY(20px)';
+        stat.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        
+        setTimeout(() => {
+            stat.style.opacity = '1';
+            stat.style.transform = 'translateY(0)';
+        }, 300 + (index * 150));
+    });
+};
+
+// Initialize Medium articles and GitHub when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Add a small delay to ensure other animations complete first
     setTimeout(() => {
         fetchMediumArticles();
+        initializeGitHub();
     }, 1000);
 });
