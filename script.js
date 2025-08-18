@@ -543,6 +543,37 @@ const optimizeImages = () => {
 implementLazyLoading();
 optimizeImages();
 
+// Tableau visualization resizer
+const resizeTableauViz = () => {
+    // Wait for Tableau visualizations to load
+    setTimeout(() => {
+        const tableauContainers = document.querySelectorAll('.visualization-container .tableauPlaceholder');
+        
+        tableauContainers.forEach(container => {
+            const vizElements = container.querySelectorAll('object, iframe');
+            vizElements.forEach(viz => {
+                viz.style.width = '100%';
+                viz.style.height = '400px';
+                viz.style.maxWidth = '100%';
+            });
+        });
+    }, 3000); // Wait 3 seconds for Tableau to load
+    
+    // Recheck after 5 seconds
+    setTimeout(() => {
+        const tableauContainers = document.querySelectorAll('.visualization-container .tableauPlaceholder');
+        
+        tableauContainers.forEach(container => {
+            const vizElements = container.querySelectorAll('object, iframe');
+            vizElements.forEach(viz => {
+                viz.style.width = '100%';
+                viz.style.height = '400px';
+                viz.style.maxWidth = '100%';
+            });
+        });
+    }, 5000);
+};
+
 // Fallback articles data
 const fallbackArticles = [
     {
@@ -1130,6 +1161,9 @@ const initializeTypingAnimation = () => {
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize typing animation immediately
     initializeTypingAnimation();
+    
+    // Resize Tableau visualizations
+    resizeTableauViz();
     
     // Add a small delay to ensure other animations complete first
     setTimeout(() => {

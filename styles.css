@@ -95,11 +95,15 @@ body {
 }
 
 .nav-logo {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--primary-blue);
     text-decoration: none;
     transition: color 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
 }
 
 .nav-logo:hover {
@@ -804,7 +808,7 @@ body {
 
 .visualizations-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
 }
@@ -874,9 +878,17 @@ body {
     background: var(--white);
 }
 
-.visualization-container .tableauPlaceholder object {
+.visualization-container .tableauPlaceholder object,
+.visualization-container .tableauViz {
     width: 100% !important;
     height: 400px !important;
+    max-width: 100% !important;
+}
+
+.visualization-container iframe {
+    width: 100% !important;
+    height: 400px !important;
+    max-width: 100% !important;
 }
 
 .viz-footer {
@@ -893,6 +905,13 @@ body {
 }
 
 /* Responsive design for visualizations */
+@media (max-width: 1200px) {
+    .visualizations-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
 @media (max-width: 768px) {
     .visualizations-grid {
         grid-template-columns: 1fr;
