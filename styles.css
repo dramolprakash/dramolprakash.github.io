@@ -381,6 +381,13 @@ body {
     color: var(--gray-600);
 }
 
+.credential-details {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+    font-weight: 500;
+    margin-top: 0.25rem;
+}
+
 .about-highlights {
     display: flex;
     flex-direction: column;
@@ -675,6 +682,283 @@ body {
     color: var(--secondary-blue);
 }
 
+.project-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.project-card-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Publications Section */
+.publications {
+    padding: var(--section-padding);
+    background: var(--white);
+}
+
+.publications-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.publication-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--light-gray);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.publication-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.publication-content {
+    flex: 1;
+}
+
+.publication-title {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.publication-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.publication-venue {
+    background: var(--light-blue);
+    color: var(--primary-blue);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.publication-date {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.publication-description {
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.publication-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.publication-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--primary-blue);
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+
+.publication-link:hover {
+    background: var(--primary-blue);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.publication-icon {
+    flex-shrink: 0;
+    width: 4rem;
+    height: 4rem;
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+.publication-icon i {
+    font-size: var(--font-size-xl);
+    color: var(--white);
+}
+
+/* Awards Section */
+.awards {
+    padding: var(--section-padding);
+    background: var(--light-gray);
+}
+
+.awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.award-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.award-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.award-icon {
+    flex-shrink: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    background: linear-gradient(135deg, var(--warning-orange), var(--healthcare-green));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.award-icon i {
+    font-size: var(--font-size-xl);
+    color: var(--white);
+}
+
+.award-content {
+    flex: 1;
+}
+
+.award-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.5rem;
+}
+
+.award-organization {
+    color: var(--primary-blue);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.award-date {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+
+.award-description {
+    color: var(--gray-600);
+    line-height: 1.5;
+}
+
+/* Activities Section */
+.activities {
+    padding: var(--section-padding);
+    background: var(--white);
+}
+
+.activities-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.activity-category {
+    background: var(--light-gray);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.category-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.category-title i {
+    color: var(--primary-blue);
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.activity-item {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--primary-blue);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.activity-item:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+}
+
+.activity-details h4 {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.5rem;
+}
+
+.activity-location {
+    color: var(--accent-teal);
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+    margin-bottom: 0.25rem;
+}
+
+.activity-date {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.activity-description {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: 0.25rem;
+}
+
 /* Contact Section */
 .contact {
     padding: var(--section-padding);
@@ -865,6 +1149,25 @@ body {
 
     .timeline-dot {
         left: 0.5rem;
+    }
+
+    .publication-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .publication-icon {
+        align-self: center;
+    }
+
+    .awards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .activities-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 }
 
