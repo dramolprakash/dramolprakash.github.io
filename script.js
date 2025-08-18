@@ -864,7 +864,7 @@ const initializeTypingAnimation = () => {
                 pauseAfter: 'medium'
             },
             {
-                text: "holds a Master's in Health Informatics from Indiana University,and an MBBS degree",
+                text: "I have a Master's in Health Informatics from Indiana University,and an MBBS degree",
                 keepText: 0,
                 pauseAfter: 'medium'
             },
