@@ -1,15 +1,15 @@
 /* Minimalist Design Overrides */
 
-/* Override old color variables with new blue/white/black theme */
+/* Override old color variables with new minimalist colors */
 :root {
     /* Override old variables */
-    --primary-blue: #2563eb;
-    --secondary-blue: #1e40af;
-    --accent-teal: #2563eb;
-    --light-blue: #eff6ff;
-    --healthcare-green: #2563eb;
-    --warning-orange: #2563eb;
-    --white: #ffffff;
+    --primary-blue: var(--accent);
+    --secondary-blue: var(--text-secondary);
+    --accent-teal: var(--accent);
+    --light-blue: var(--accent-light);
+    --healthcare-green: var(--accent);
+    --warning-orange: var(--text-secondary);
+    --white: var(--bg-primary);
     --light-gray: var(--bg-secondary);
     --gray-100: var(--bg-tertiary);
     --gray-200: var(--border-primary);
@@ -45,7 +45,7 @@ section:nth-child(even) {
     font-weight: 400;
 }
 
-/* Cards and containers with blue/white/black theme */
+/* Cards and containers */
 .about,
 .skills,
 .experience,
@@ -67,7 +67,7 @@ section:nth-child(even) {
 .awards:nth-child(even),
 .activities:nth-child(even),
 .contact:nth-child(even) {
-    background: #ffffff;
+    background: var(--bg-secondary);
 }
 
 /* Project cards */
