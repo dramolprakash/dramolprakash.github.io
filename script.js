@@ -419,3 +419,171 @@ const showToast = (message) => {
 
 // Initialize email copy functionality
 addEmailCopy();
+
+// Fallback articles data
+const fallbackArticles = [
+    {
+        title: "Understanding HL7 and FHIR",
+        link: "https://medium.com/@dramol/understanding-hl7-and-fhir-72f300cb0bed",
+        excerpt: "A comprehensive guide to understanding HL7 and FHIR standards in healthcare data exchange. Learn how these standards enable interoperability in modern healthcare systems.",
+        tags: ["HL7", "FHIR", "Healthcare", "Interoperability"],
+        readTime: 8
+    },
+    {
+        title: "The Long and Tedious Journey of a Drug",
+        link: "https://medium.com/@dramol/the-long-and-tedious-journey-of-a-drug-4ddd4544d7a1",
+        excerpt: "Explore the complex journey of pharmaceutical drug development from discovery to market, understanding the regulatory processes and challenges involved.",
+        tags: ["Pharmaceutical", "Drug Development", "Healthcare", "Regulatory"],
+        readTime: 12
+    },
+    {
+        title: "Everything is Just Ones and Zeros",
+        link: "https://medium.com/@dramol/everything-is-just-ones-and-zeros-64dfca7f322c",
+        excerpt: "Dive into the fundamental concepts of digital information and how binary systems form the foundation of all modern computing and data processing.",
+        tags: ["Technology", "Binary", "Computing", "Digital"],
+        readTime: 6
+    },
+    {
+        title: "Computational Thinking",
+        link: "https://medium.com/@dramol/computational-thinking-5e2eb6893cc1",
+        excerpt: "Understanding computational thinking as a problem-solving approach that can be applied across various disciplines, from healthcare to data analysis.",
+        tags: ["Computational Thinking", "Problem Solving", "Data Science"],
+        readTime: 10
+    }
+];
+
+// Medium Articles Fetcher with fallback
+const fetchMediumArticles = async () => {
+    const articlesContainer = document.getElementById('articles-container');
+    
+    try {
+        // First try to fetch from RSS feed
+        const proxyUrl = 'https://api.allorigins.win/get?url=';
+        const mediumRssUrl = 'https://medium.com/feed/@dramol';
+        const response = await fetch(proxyUrl + encodeURIComponent(mediumRssUrl));
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch articles');
+        }
+        
+        const data = await response.json();
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+        
+        const items = xmlDoc.querySelectorAll('item');
+        
+        if (items.length === 0) {
+            throw new Error('No articles found in RSS');
+        }
+        
+        // Clear loading spinner
+        articlesContainer.innerHTML = '';
+        
+        // Process articles (limit to 6 most recent)
+        const articlesToShow = Array.from(items).slice(0, 6);
+        
+        articlesToShow.forEach(item => {
+            const title = item.querySelector('title')?.textContent || 'Untitled';
+            const link = item.querySelector('link')?.textContent || '#';
+            const pubDate = item.querySelector('pubDate')?.textContent || '';
+            const description = item.querySelector('description')?.textContent || '';
+            const categories = Array.from(item.querySelectorAll('category')).map(cat => cat.textContent);
+            
+            // Parse description to extract clean text (remove HTML)
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = description;
+            const cleanDescription = tempDiv.textContent || tempDiv.innerText || '';
+            
+            // Format date
+            const formattedDate = pubDate ? new Date(pubDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }) : '';
+            
+            // Estimate read time (average 200 words per minute)
+            const wordCount = cleanDescription.split(' ').length;
+            const readTime = Math.ceil(wordCount / 200);
+            
+            createArticleCard(title, link, cleanDescription, categories, formattedDate, readTime, articlesContainer);
+        });
+        
+        animateArticleCards();
+        
+    } catch (error) {
+        console.log('RSS fetch failed, using fallback articles:', error);
+        displayFallbackArticles(articlesContainer);
+    }
+};
+
+// Function to display fallback articles
+const displayFallbackArticles = (container) => {
+    container.innerHTML = '';
+    
+    fallbackArticles.forEach(article => {
+        createArticleCard(
+            article.title,
+            article.link,
+            article.excerpt,
+            article.tags,
+            '', // No date for fallback articles
+            article.readTime,
+            container
+        );
+    });
+    
+    animateArticleCards();
+};
+
+// Function to create article card
+const createArticleCard = (title, link, description, tags, date, readTime, container) => {
+    const articleCard = document.createElement('div');
+    articleCard.className = 'article-card';
+    articleCard.innerHTML = `
+        <h3 class="article-title">
+            <a href="${link}" target="_blank" rel="noopener noreferrer">${title}</a>
+        </h3>
+        <div class="article-meta">
+            ${date ? `<span class="article-date">
+                <i class="fas fa-calendar"></i> ${date}
+            </span>` : ''}
+            <span class="article-read-time">
+                <i class="fas fa-clock"></i> ${readTime} min read
+            </span>
+        </div>
+        <p class="article-excerpt">${description.substring(0, 200)}${description.length > 200 ? '...' : ''}</p>
+        ${tags && tags.length > 0 ? `
+            <div class="article-tags">
+                ${tags.slice(0, 3).map(tag => `<span class="article-tag">${tag}</span>`).join('')}
+            </div>
+        ` : ''}
+        <a href="${link}" target="_blank" rel="noopener noreferrer" class="article-link">
+            Read Article <i class="fas fa-external-link-alt"></i>
+        </a>
+    `;
+    
+    container.appendChild(articleCard);
+};
+
+// Function to animate article cards
+const animateArticleCards = () => {
+    const articleCards = document.querySelectorAll('.article-card');
+    articleCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, 100 + (index * 100));
+    });
+};
+
+// Initialize Medium articles when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Add a small delay to ensure other animations complete first
+    setTimeout(() => {
+        fetchMediumArticles();
+    }, 1000);
+});
