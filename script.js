@@ -735,8 +735,160 @@ const initializeGitHub = () => {
     });
 };
 
-// Initialize Medium articles and GitHub when DOM is loaded
+// Typing Animation Class
+class TypingAnimation {
+    constructor(element, sequences) {
+        this.element = element;
+        this.sequences = sequences;
+        this.currentSequence = 0;
+        this.currentText = '';
+        this.isTyping = false;
+        this.isDeleting = false;
+        this.cursor = element.querySelector('.cursor');
+        this.textElement = element.querySelector('.typing-text');
+        
+        // Human-like typing variations
+        this.typingSpeed = {
+            min: 80,
+            max: 120,
+            punctuation: 300, // Slower for punctuation
+            space: 150 // Slight pause for spaces
+        };
+        
+        this.deletingSpeed = {
+            min: 60,
+            max: 80
+        };
+        
+        this.pauseDuration = {
+            short: 800,
+            medium: 1500,
+            long: 2500
+        };
+        
+        this.init();
+    }
+    
+    init() {
+        this.startTyping();
+    }
+    
+    getTypingSpeed(char) {
+        if (char === '.' || char === ',' || char === '!' || char === '?') {
+            return this.typingSpeed.punctuation;
+        } else if (char === ' ') {
+            return this.typingSpeed.space;
+        } else {
+            return Math.random() * (this.typingSpeed.max - this.typingSpeed.min) + this.typingSpeed.min;
+        }
+    }
+    
+    getDeletingSpeed() {
+        return Math.random() * (this.deletingSpeed.max - this.deletingSpeed.min) + this.deletingSpeed.min;
+    }
+    
+    updateDisplay() {
+        this.textElement.textContent = this.currentText;
+    }
+    
+    type() {
+        if (this.currentSequence >= this.sequences.length) {
+            // Loop back to beginning after a long pause
+            setTimeout(() => {
+                this.currentSequence = 0;
+                this.startTyping();
+            }, this.pauseDuration.long);
+            return;
+        }
+        
+        const targetText = this.sequences[this.currentSequence].text;
+        const fullText = targetText;
+        
+        if (!this.isDeleting && this.currentText.length < fullText.length) {
+            // Typing forward
+            const nextChar = fullText.charAt(this.currentText.length);
+            this.currentText += nextChar;
+            this.updateDisplay();
+            
+            const speed = this.getTypingSpeed(nextChar);
+            setTimeout(() => this.type(), speed);
+            
+        } else if (!this.isDeleting) {
+            // Finished typing, wait then start deleting
+            this.isDeleting = true;
+            const sequence = this.sequences[this.currentSequence];
+            const pauseTime = sequence.pauseAfter === 'long' ? this.pauseDuration.long : 
+                            sequence.pauseAfter === 'medium' ? this.pauseDuration.medium : 
+                            this.pauseDuration.short;
+            
+            setTimeout(() => this.type(), pauseTime);
+            
+        } else if (this.isDeleting && this.currentText.length > this.sequences[this.currentSequence].keepText) {
+            // Deleting
+            this.currentText = this.currentText.slice(0, -1);
+            this.updateDisplay();
+            
+            const speed = this.getDeletingSpeed();
+            setTimeout(() => this.type(), speed);
+            
+        } else {
+            // Finished deleting, move to next sequence
+            this.isDeleting = false;
+            this.currentSequence++;
+            setTimeout(() => this.type(), this.pauseDuration.short);
+        }
+    }
+    
+    startTyping() {
+        this.currentText = '';
+        this.isDeleting = false;
+        this.updateDisplay();
+        this.type();
+    }
+}
+
+// Initialize typing animation when DOM is loaded
+const initializeTypingAnimation = () => {
+    const typingContainer = document.querySelector('.typing-container');
+    if (typingContainer) {
+        // Define the typing sequences based on your background
+        const sequences = [
+            {
+                text: "Hi, I'm Dr. Amol Prakash",
+                keepText: 8, // Keep "Hi, I'm "
+                pauseAfter: 'medium'
+            },
+            {
+                text: "Hi, I'm a Healthcare Data Analyst with 3+ years experience",
+                keepText: 8,
+                pauseAfter: 'medium'
+            },
+            {
+                text: "Hi, I'm a graduate with MS in Health Informatics",
+                keepText: 8,
+                pauseAfter: 'medium'
+            },
+            {
+                text: "Hi, I'm proficient in SQL, Python & Healthcare Analytics",
+                keepText: 8,
+                pauseAfter: 'medium'
+            },
+            {
+                text: "Hi, I'm bridging clinical expertise with data science",
+                keepText: 8,
+                pauseAfter: 'long'
+            }
+        ];
+        
+        new TypingAnimation(typingContainer, sequences);
+    }
+};
+
+// Initialize Medium articles, GitHub, and typing animation when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize typing animation immediately
+    initializeTypingAnimation();
+    
     // Add a small delay to ensure other animations complete first
     setTimeout(() => {
         fetchMediumArticles();
