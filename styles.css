@@ -62,7 +62,8 @@ body {
     font-size: var(--font-size-base);
     line-height: 1.6;
     color: var(--gray-800);
-    background-color: var(--white);
+    background: linear-gradient(135deg, var(--light-gray) 0%, var(--light-blue) 100%);
+    min-height: 100vh;
 }
 
 .container {
@@ -155,7 +156,7 @@ body {
 /* Hero Section */
 .hero {
     padding: 8rem 0 5rem;
-    background: linear-gradient(135deg, var(--light-gray) 0%, var(--light-blue) 100%);
+    background: transparent;
     overflow: hidden;
 }
 
@@ -332,7 +333,7 @@ body {
 /* About Section */
 .about {
     padding: var(--section-padding);
-    background: var(--white);
+    background: transparent;
 }
 
 .about-content {
@@ -494,7 +495,7 @@ body {
 /* Experience Section */
 .experience {
     padding: var(--section-padding);
-    background: var(--white);
+    background: transparent;
 }
 
 .timeline {
@@ -696,7 +697,7 @@ body {
 /* Publications Section */
 .publications {
     padding: var(--section-padding);
-    background: var(--white);
+    background: transparent;
 }
 
 .publications-list {
@@ -1258,7 +1259,7 @@ body {
 /* Activities Section */
 .activities {
     padding: var(--section-padding);
-    background: var(--white);
+    background: transparent;
 }
 
 .activities-content {
@@ -1340,7 +1341,7 @@ body {
 /* Contact Section */
 .contact {
     padding: var(--section-padding);
-    background: var(--white);
+    background: transparent;
 }
 
 .contact-content {
