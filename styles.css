@@ -230,7 +230,7 @@ body {
     resize: none;
     flex: 1;
     min-height: 2.5rem;
-    overflow: hidden;
+    overflow: visible;
     white-space: pre-wrap;
     word-wrap: break-word;
     display: inline-block;
