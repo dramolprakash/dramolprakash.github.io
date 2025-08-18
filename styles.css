@@ -170,7 +170,7 @@ body {
     border: 1px solid #333;
     position: relative;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .typing-header {
