@@ -854,17 +854,17 @@ const initializeTypingAnimation = () => {
         // Define the typing sequences based on your background
         const sequences = [
             {
-                text: "Hi, I'm Dr. Amol Prakash",
+                text: "Hi, I'm Amol Prakash MHSI MBBS",
                 keepText: 8, // Keep "Hi, I'm "
                 pauseAfter: 'medium'
             },
             {
-                text: "Hi, I'm a Healthcare Data Analyst with 3+ years experience",
+                text: "Hi, I'm a Healthcare Data Analyst with 3+ years of experience",
                 keepText: 8,
                 pauseAfter: 'medium'
             },
             {
-                text: "I hold a Master's of Health Informatics from Indiana University",
+                text: "holds a Master's in Health Informatics from Indiana University,and an MBBS degree",
                 keepText: 0,
                 pauseAfter: 'medium'
             },
