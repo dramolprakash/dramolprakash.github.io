@@ -854,7 +854,7 @@ const initializeTypingAnimation = () => {
         // Define the typing sequences based on your background
         const sequences = [
             {
-                text: "Hi, I'm Amol Prakash MHSI MBBS",
+                text: "Hi, I'm Dr.Amol Prakash MHSI MBBS",
                 keepText: 8, // Keep "Hi, I'm "
                 pauseAfter: 'medium'
             },
