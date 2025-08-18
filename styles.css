@@ -560,6 +560,31 @@ body {
 .timeline-content p {
     color: var(--gray-600);
     line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.timeline-content .skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.timeline-content .skill-tag {
+    background: var(--light-blue);
+    color: var(--primary-blue);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    border: 1px solid var(--gray-200);
+    transition: all 0.3s ease;
+}
+
+.timeline-content .skill-tag:hover {
+    background: var(--primary-blue);
+    color: var(--white);
+    transform: translateY(-1px);
 }
 
 /* Projects Section */
