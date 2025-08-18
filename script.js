@@ -27,11 +27,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar scroll effect
+// Throttle function for performance optimization
+const throttle = (func, limit) => {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+};
+
+// Navbar scroll effect with throttling
 let lastScrollTop = 0;
 const navbar = document.querySelector('.navbar');
 
-window.addEventListener('scroll', () => {
+const handleNavbarScroll = () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
     if (scrollTop > lastScrollTop && scrollTop > 100) {
@@ -50,18 +64,19 @@ window.addEventListener('scroll', () => {
     }
     
     lastScrollTop = scrollTop;
-});
+};
 
-// Active section highlighting in navbar
+window.addEventListener('scroll', throttle(handleNavbarScroll, 16));
+
+// Active section highlighting in navbar with throttling
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.nav-link');
 
-window.addEventListener('scroll', () => {
+const handleSectionHighlight = () => {
     let current = '';
     
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
         
         if (window.pageYOffset >= (sectionTop - 200)) {
             current = section.getAttribute('id');
@@ -74,7 +89,9 @@ window.addEventListener('scroll', () => {
             link.classList.add('active');
         }
     });
-});
+};
+
+window.addEventListener('scroll', throttle(handleSectionHighlight, 100));
 
 // Intersection Observer for animations
 const observerOptions = {
@@ -201,8 +218,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 });
 
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
+// Parallax effect for hero section with throttling
+const handleParallax = () => {
     const scrolled = window.pageYOffset;
     const parallaxElements = document.querySelectorAll('.hero-image');
     
@@ -210,7 +227,9 @@ window.addEventListener('scroll', () => {
         const speed = 0.3;
         element.style.transform = `translateY(${scrolled * speed}px)`;
     });
-});
+};
+
+window.addEventListener('scroll', throttle(handleParallax, 16));
 
 // Add loading animation
 window.addEventListener('load', () => {
@@ -330,13 +349,18 @@ const createScrollProgress = () => {
     document.head.appendChild(styleSheet);
     document.body.appendChild(progressBar);
     
-    window.addEventListener('scroll', () => {
+    const handleScrollProgress = () => {
         const scrolled = window.pageYOffset;
         const maxHeight = document.documentElement.scrollHeight - window.innerHeight;
         const progress = (scrolled / maxHeight) * 100;
         
-        document.querySelector('.scroll-progress-bar').style.width = progress + '%';
-    });
+        const progressBar = document.querySelector('.scroll-progress-bar');
+        if (progressBar) {
+            progressBar.style.width = progress + '%';
+        }
+    };
+    
+    window.addEventListener('scroll', throttle(handleScrollProgress, 16));
 };
 
 // Initialize scroll progress
@@ -354,16 +378,33 @@ const addEmailCopy = () => {
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(email).then(() => {
                     showToast('Email copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy email:', err);
+                    showToast('Failed to copy email');
                 });
             } else {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = email;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showToast('Email copied to clipboard!');
+                // Fallback for older browsers or non-secure contexts
+                try {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = email;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    textArea.setSelectionRange(0, 99999);
+                    
+                    const successful = document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    if (successful) {
+                        showToast('Email copied to clipboard!');
+                    } else {
+                        showToast('Please copy manually: ' + email);
+                    }
+                } catch (err) {
+                    console.error('Failed to copy email:', err);
+                    showToast('Please copy manually: ' + email);
+                }
             }
         });
     });
@@ -420,6 +461,88 @@ const showToast = (message) => {
 // Initialize email copy functionality
 addEmailCopy();
 
+// Lazy loading for images
+const implementLazyLoading = () => {
+    // Check if Intersection Observer is supported
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    
+                    // Add loading animation
+                    img.style.transition = 'opacity 0.3s ease';
+                    img.style.opacity = '0';
+                    
+                    // Set up load event
+                    img.onload = () => {
+                        img.style.opacity = '1';
+                        img.classList.remove('lazy');
+                    };
+                    
+                    // Handle error
+                    img.onerror = () => {
+                        console.warn('Failed to load image:', img.src);
+                        img.style.opacity = '1';
+                        img.classList.remove('lazy');
+                    };
+                    
+                    // Load the image if data-src exists
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.01
+        });
+        
+        // Observe all images with lazy class or data-src attribute
+        const lazyImages = document.querySelectorAll('img[data-src], img.lazy');
+        lazyImages.forEach(img => imageObserver.observe(img));
+        
+    } else {
+        // Fallback for browsers without Intersection Observer
+        const lazyImages = document.querySelectorAll('img[data-src]');
+        lazyImages.forEach(img => {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+        });
+    }
+};
+
+// Image optimization helper
+const optimizeImages = () => {
+    const images = document.querySelectorAll('img');
+    
+    images.forEach(img => {
+        // Add responsive image attributes if not present
+        if (!img.hasAttribute('loading')) {
+            img.setAttribute('loading', 'lazy');
+        }
+        
+        if (!img.hasAttribute('decoding')) {
+            img.setAttribute('decoding', 'async');
+        }
+        
+        // Add error handling for broken images
+        img.addEventListener('error', function() {
+            console.warn('Image failed to load:', this.src);
+            // Could add placeholder image here
+            this.style.opacity = '0.5';
+            this.style.filter = 'grayscale(100%)';
+        });
+    });
+};
+
+// Initialize image optimizations
+implementLazyLoading();
+optimizeImages();
+
 // Fallback articles data
 const fallbackArticles = [
     {
@@ -452,23 +575,53 @@ const fallbackArticles = [
     }
 ];
 
-// Medium Articles Fetcher with fallback
+// Medium Articles Fetcher with comprehensive error handling
 const fetchMediumArticles = async () => {
     const articlesContainer = document.getElementById('articles-container');
     
+    if (!articlesContainer) {
+        console.error('Articles container not found');
+        return;
+    }
+    
+    const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Request timeout')), 10000)
+    );
+    
     try {
-        // First try to fetch from RSS feed
+        // First try to fetch from RSS feed with timeout
         const proxyUrl = 'https://api.allorigins.win/get?url=';
         const mediumRssUrl = 'https://medium.com/feed/@dramol';
-        const response = await fetch(proxyUrl + encodeURIComponent(mediumRssUrl));
+        
+        const response = await Promise.race([
+            fetch(proxyUrl + encodeURIComponent(mediumRssUrl), {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                },
+                cache: 'default'
+            }),
+            timeoutPromise
+        ]);
         
         if (!response.ok) {
-            throw new Error('Failed to fetch articles');
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const data = await response.json();
+        
+        if (!data || !data.contents) {
+            throw new Error('Invalid response format');
+        }
+        
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+        
+        // Check for XML parsing errors
+        const parserError = xmlDoc.querySelector('parsererror');
+        if (parserError) {
+            throw new Error('XML parsing failed');
+        }
         
         const items = xmlDoc.querySelectorAll('item');
         
@@ -482,37 +635,62 @@ const fetchMediumArticles = async () => {
         // Process articles (limit to 6 most recent)
         const articlesToShow = Array.from(items).slice(0, 6);
         
-        articlesToShow.forEach(item => {
-            const title = item.querySelector('title')?.textContent || 'Untitled';
-            const link = item.querySelector('link')?.textContent || '#';
-            const pubDate = item.querySelector('pubDate')?.textContent || '';
-            const description = item.querySelector('description')?.textContent || '';
-            const categories = Array.from(item.querySelectorAll('category')).map(cat => cat.textContent);
-            
-            // Parse description to extract clean text (remove HTML)
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = description;
-            const cleanDescription = tempDiv.textContent || tempDiv.innerText || '';
-            
-            // Format date
-            const formattedDate = pubDate ? new Date(pubDate).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            }) : '';
-            
-            // Estimate read time (average 200 words per minute)
-            const wordCount = cleanDescription.split(' ').length;
-            const readTime = Math.ceil(wordCount / 200);
-            
-            createArticleCard(title, link, cleanDescription, categories, formattedDate, readTime, articlesContainer);
+        articlesToShow.forEach((item, index) => {
+            try {
+                const title = item.querySelector('title')?.textContent?.trim() || `Article ${index + 1}`;
+                const link = item.querySelector('link')?.textContent?.trim() || '#';
+                const pubDate = item.querySelector('pubDate')?.textContent?.trim() || '';
+                const description = item.querySelector('description')?.textContent?.trim() || '';
+                const categories = Array.from(item.querySelectorAll('category')).map(cat => 
+                    cat.textContent?.trim()).filter(Boolean);
+                
+                // Parse description to extract clean text (remove HTML)
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = description;
+                const cleanDescription = (tempDiv.textContent || tempDiv.innerText || '').trim();
+                
+                // Format date with error handling
+                let formattedDate = '';
+                if (pubDate) {
+                    try {
+                        formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                    } catch (dateError) {
+                        console.warn('Date parsing failed for:', pubDate);
+                    }
+                }
+                
+                // Estimate read time (average 200 words per minute)
+                const wordCount = cleanDescription.split(/\s+/).filter(Boolean).length;
+                const readTime = Math.max(1, Math.ceil(wordCount / 200));
+                
+                createArticleCard(title, link, cleanDescription, categories, formattedDate, readTime, articlesContainer);
+            } catch (itemError) {
+                console.warn('Failed to process article item:', itemError);
+            }
         });
+        
+        if (articlesContainer.children.length === 0) {
+            throw new Error('No valid articles could be processed');
+        }
         
         animateArticleCards();
         
     } catch (error) {
-        console.log('RSS fetch failed, using fallback articles:', error);
+        console.error('RSS fetch failed:', error.message);
         displayFallbackArticles(articlesContainer);
+        
+        // Show user-friendly error message
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'articles-error';
+        errorDiv.innerHTML = `
+            <p><i class="fas fa-exclamation-triangle"></i> 
+            Unable to load latest articles. Showing featured articles instead.</p>
+        `;
+        articlesContainer.insertBefore(errorDiv, articlesContainer.firstChild);
     }
 };
 
@@ -583,29 +761,93 @@ const animateArticleCards = () => {
 // GitHub API integration
 const GITHUB_USERNAME = 'dramolprakash';
 
-// Fetch GitHub user stats
+// Fetch GitHub user stats with comprehensive error handling
 const fetchGitHubStats = async () => {
+    const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('GitHub API timeout')), 8000)
+    );
+    
     try {
-        const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
-        const userData = await response.json();
+        // Fetch user data with timeout
+        const userResponse = await Promise.race([
+            fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                },
+                cache: 'default'
+            }),
+            timeoutPromise
+        ]);
         
-        // Get repositories
-        const reposResponse = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`);
+        if (!userResponse.ok) {
+            throw new Error(`GitHub user API error: ${userResponse.status}`);
+        }
+        
+        const userData = await userResponse.json();
+        
+        if (!userData || typeof userData !== 'object') {
+            throw new Error('Invalid user data format');
+        }
+        
+        // Get repositories with timeout
+        const reposResponse = await Promise.race([
+            fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`, {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                },
+                cache: 'default'
+            }),
+            timeoutPromise
+        ]);
+        
+        if (!reposResponse.ok) {
+            throw new Error(`GitHub repos API error: ${reposResponse.status}`);
+        }
+        
         const repos = await reposResponse.json();
         
-        // Calculate stats
-        const publicRepos = userData.public_repos || 0;
-        const totalStars = repos.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
+        if (!Array.isArray(repos)) {
+            throw new Error('Invalid repos data format');
+        }
         
-        // Update stats in DOM
-        document.getElementById('github-repos').textContent = publicRepos;
-        document.getElementById('github-stars').textContent = totalStars;
+        // Calculate stats safely
+        const publicRepos = Math.max(0, parseInt(userData.public_repos) || 0);
+        const totalStars = repos.reduce((sum, repo) => {
+            const stars = parseInt(repo?.stargazers_count) || 0;
+            return sum + stars;
+        }, 0);
+        
+        const totalContributions = repos.length; // Approximation
+        
+        // Update stats in DOM with error checking
+        const reposElement = document.getElementById('github-repos');
+        const starsElement = document.getElementById('github-stars');
+        const contributionsElement = document.getElementById('github-contributions');
+        
+        if (reposElement) reposElement.textContent = publicRepos;
+        if (starsElement) starsElement.textContent = totalStars;
+        if (contributionsElement) contributionsElement.textContent = totalContributions;
+        
+        console.log('GitHub stats loaded successfully');
         
     } catch (error) {
-        console.error('Error fetching GitHub stats:', error);
-        // Fallback values
-        document.getElementById('github-repos').textContent = '10+';
-        document.getElementById('github-stars').textContent = '25+';
+        console.error('Error fetching GitHub stats:', error.message);
+        
+        // Fallback values with better error handling
+        const reposElement = document.getElementById('github-repos');
+        const starsElement = document.getElementById('github-stars');
+        const contributionsElement = document.getElementById('github-contributions');
+        
+        if (reposElement) reposElement.textContent = '15+';
+        if (starsElement) starsElement.textContent = '30+';
+        if (contributionsElement) contributionsElement.textContent = '500+';
+        
+        // Show user-friendly error
+        const errorMessage = error.message.includes('timeout') ? 
+            'GitHub stats temporarily unavailable' : 
+            'Unable to load GitHub stats';
+        
+        console.warn(errorMessage);
     }
 };
 
@@ -854,28 +1096,28 @@ const initializeTypingAnimation = () => {
         // Define the typing sequences based on your background
         const sequences = [
             {
-                text: "Hi, I'm Dr.Amol Prakash MHSI MBBS",
-                keepText: 8, // Keep "Hi, I'm "
+                text: "Hi, I'm Dr.Amol Prakash MBBS, MHSI",
+                keepText: 0, // Keep "Hi, I'm "
                 pauseAfter: 'medium'
             },
             {
-                text: "Hi, I'm a Healthcare Data Analyst with 3+ years of experience",
-                keepText: 8,
-                pauseAfter: 'medium'
-            },
-            {
-                text: "I have a Master's in Health Informatics from Indiana University,and an MBBS degree",
+                text: "I'm a Healthcare Data Analyst with 3+ years of experience",
                 keepText: 0,
                 pauseAfter: 'medium'
             },
             {
-                text: "I am proficient in SQL, Python, R, Tableau, Power BI and healthcare analytics",
+                text: "I hold a Master's in Health Informatics from Indiana University,and an MBBS degree",
                 keepText: 0,
                 pauseAfter: 'medium'
             },
             {
-                text: "Hi, I'm bridging clinical expertise with data science",
-                keepText: 8,
+                text: "I am proficient in SQL, Python, R, Tableau, Power BI and Healthcare Data Standards",
+                keepText: 0,
+                pauseAfter: 'medium'
+            },
+            {
+                text: "I'm bridging clinical expertise with data science to improve healthcare outcomes",
+                keepText: 0,
                 pauseAfter: 'long'
             }
         ];
