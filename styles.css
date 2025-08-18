@@ -796,6 +796,125 @@ body {
     background: var(--light-gray);
 }
 
+/* Data Visualizations Section */
+.visualizations {
+    padding: var(--section-padding);
+    background: transparent;
+}
+
+.visualizations-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    margin-bottom: 3rem;
+}
+
+.visualization-item {
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 4px solid var(--primary-blue);
+}
+
+.visualization-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.visualization-header {
+    margin-bottom: 2rem;
+}
+
+.visualization-header h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.viz-description {
+    color: var(--gray-600);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.visualization-container {
+    background: var(--light-gray);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    overflow: auto;
+    position: relative;
+}
+
+.visualization-container .tableauPlaceholder {
+    width: 100% !important;
+    margin: 0 auto;
+    border-radius: var(--border-radius);
+    overflow: auto;
+    background: var(--white);
+}
+
+.viz-footer {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.viz-footer .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    font-size: var(--font-size-base);
+}
+
+/* Responsive design for visualizations */
+@media (max-width: 768px) {
+    .visualizations-grid {
+        gap: 2rem;
+    }
+    
+    .visualization-item {
+        padding: 1.5rem;
+    }
+    
+    .visualization-header h3 {
+        font-size: var(--font-size-lg);
+    }
+    
+    .visualization-container {
+        padding: 0.5rem;
+        overflow-x: auto;
+    }
+    
+    .visualization-container .tableauPlaceholder {
+        min-width: 800px;
+    }
+}
+
+@media (max-width: 480px) {
+    .visualization-item {
+        padding: 1rem;
+        margin: 0 -0.5rem;
+    }
+    
+    .visualization-header {
+        margin-bottom: 1rem;
+    }
+    
+    .visualization-header h3 {
+        font-size: var(--font-size-base);
+        line-height: 1.3;
+    }
+    
+    .viz-description {
+        font-size: var(--font-size-sm);
+    }
+}
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
