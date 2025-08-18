@@ -157,7 +157,7 @@ body {
 .hero {
     padding: 8rem 0 5rem;
     background: transparent;
-    overflow: hidden;
+    overflow: auto;
 }
 
 /* Typing Animation */
@@ -170,7 +170,7 @@ body {
     border: 1px solid #333;
     position: relative;
     max-width: 100%;
-    overflow: hidden;
+    overflow: auto;
     min-height: 180px;
     height: 180px;
 }
@@ -233,7 +233,7 @@ body {
     flex: 1;
     min-height: 100px;
     height: 100px;
-    overflow: hidden;
+    overflow: auto;
     white-space: pre-wrap;
     word-wrap: break-word;
     display: inline-block;
@@ -817,7 +817,7 @@ body {
 .project-card {
     background: var(--white);
     border-radius: var(--border-radius-lg);
-    overflow: hidden;
+    overflow: auto;
     box-shadow: var(--shadow-md);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -1329,7 +1329,7 @@ body {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .article-tags {
