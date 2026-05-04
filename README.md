@@ -1,6 +1,6 @@
 # Healthcare Data Analyst | Health Informatics | AI in Medicine  
 
-📩 **amolprakash11@gmail.com** | [**LinkedIn**](https://www.linkedin.com/in/dr-amol-prakash-mbbs-mshi-6120aa11b/) | [**Tableau**](https://public.tableau.com/app/profile/amol.prakash8604/vizzes) | [**Leetcode**](https://leetcode.com/u/user0929aV/)  
+📩 **amolprakash11@gmail.com** | [**LinkedIn**](https://www.linkedin.com/in/amol-prakash-md-mshi-capm-6120aa11b/) | [**Tableau**](https://public.tableau.com/app/profile/amol.prakash8604/vizzes) | [**Leetcode**](https://leetcode.com/u/user0929aV/)  
 
 🚀 Healthcare Data Analyst with **3+ years** of clinical expertise and data-driven decision-making. Holding an **M.S. in Health Informatics (Indiana University)** and **M.B.B.S (Uzhhorod National University, Ukraine)**. Passionate about **AI in healthcare**, **predictive modeling**, and **data analytics** to enhance **patient outcomes and operational efficiency**.  
 
