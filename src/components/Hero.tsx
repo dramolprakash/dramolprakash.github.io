@@ -85,7 +85,6 @@ function AnimatedCounter({ target, suffix }: { target: number; suffix: string })
 export default function Hero() {
   const typedText = useTypingEffect(typingPhrases);
   const [headingVisible, setHeadingVisible] = useState(false);
-  const [useRealPhoto, setUseRealPhoto] = useState(true);
 
   useEffect(() => {
     const t = setTimeout(() => setHeadingVisible(true), 100);
@@ -267,23 +266,14 @@ export default function Hero() {
               <div className="relative w-64 h-64 sm:w-72 sm:h-72">
                 <div className="profile-ring" />
                 <div className="w-full h-full rounded-full overflow-hidden bg-slate-800 border-4 border-slate-900 relative z-10">
-                  {useRealPhoto ? (
-                    <Image
-                      src="/assets/headshot_circle.png"
-                      alt="Dr. Amol Prakash"
-                      fill
-                      className="object-cover"
-                      priority
-                      onError={() => setUseRealPhoto(false)}
-                    />
-                  ) : (
-                    <div className="w-full h-full img-placeholder rounded-full flex flex-col items-center justify-center gap-2">
-                      <svg className="w-16 h-16 text-blue-400/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                      <p className="text-slate-500 text-xs text-center px-4">Professional headshot placeholder</p>
-                    </div>
-                  )}
+                  <Image
+                    src="/assets/headshot_circle.png"
+                    alt="Dr. Amol Prakash"
+                    width={288}
+                    height={288}
+                    className="object-cover w-full h-full"
+                    priority
+                  />
                 </div>
               </div>
 
