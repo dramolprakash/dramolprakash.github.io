@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { personal } from '@/lib/data';
 
 const highlights = [
@@ -20,15 +21,27 @@ export default function About() {
               </p>
             ))}
           </div>
-          <div className="space-y-4">
-            {highlights.map((h) => (
-              <div key={h.label} className="border-l-2 border-blue-600 pl-3">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
-                  {h.label}
-                </p>
-                <p className="text-gray-800 text-sm font-medium mt-0.5">{h.value}</p>
+          <div className="space-y-6">
+            <div className="flex justify-center md:justify-start">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-md flex-shrink-0">
+                <Image
+                  src="/assets/headshot_circle.png"
+                  alt="Dr. Amol Prakash"
+                  fill
+                  className="object-cover"
+                />
               </div>
-            ))}
+            </div>
+            <div className="space-y-4">
+              {highlights.map((h) => (
+                <div key={h.label} className="border-l-2 border-blue-600 pl-3">
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                    {h.label}
+                  </p>
+                  <p className="text-gray-800 text-sm font-medium mt-0.5">{h.value}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
