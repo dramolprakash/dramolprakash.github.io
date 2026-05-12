@@ -19,7 +19,7 @@ social:
 
 # SEO settings
 lang: "en-US"
-logo: assets/headshot_circle.png
+logo: public/assets/headshot_circle.png
 
 # Portfolio settings
 show_excerpts: false
