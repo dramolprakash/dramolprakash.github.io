@@ -87,13 +87,12 @@ export default function Hero() {
 
           {/* Right: photo + stats */}
           <div className="md:col-span-2 flex flex-col items-center gap-6">
-            <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden border-4 border-gray-100 flex-shrink-0">
+            <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden border-4 border-gray-100 flex-shrink-0">
               <Image
                 src="/assets/headshot_circle.png"
                 alt="Dr. Amol Prakash"
-                width={224}
-                height={224}
-                className="object-cover w-full h-full"
+                fill
+                className="object-cover"
                 priority
               />
             </div>
