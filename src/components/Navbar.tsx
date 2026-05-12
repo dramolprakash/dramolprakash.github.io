@@ -4,69 +4,50 @@ import { useState, useEffect } from 'react';
 import { navLinks, personal } from '@/lib/data';
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 20);
-
       const sections = navLinks.map((l) => l.href.slice(1));
       let current = 'home';
       for (const id of sections) {
         const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 120) current = id;
+        if (el && window.scrollY >= el.offsetTop - 100) current = id;
       }
       setActiveSection(current);
     };
-
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const handleNavClick = (href: string) => {
     setMenuOpen(false);
-    const id = href.slice(1);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/60 shadow-lg shadow-black/20'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <button
             onClick={() => handleNavClick('#home')}
-            className="flex items-center gap-2 group"
+            className="font-semibold text-gray-900 hover:text-blue-600 transition-colors"
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/25">
-              <span className="text-white font-bold text-sm">AP</span>
-            </div>
-            <span className="font-bold text-slate-100 group-hover:text-blue-400 transition-colors hidden sm:block">
-              Dr. Amol Prakash
-            </span>
+            Dr. Amol Prakash
           </button>
 
-          {/* Desktop Nav */}
           <ul className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
               const id = link.href.slice(1);
-              const isActive = activeSection === id;
               return (
                 <li key={link.href}>
                   <button
                     onClick={() => handleNavClick(link.href)}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                      isActive
-                        ? 'text-blue-400 bg-blue-500/10'
-                        : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
+                    className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
+                      activeSection === id
+                        ? 'text-blue-600'
+                        : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
                     {link.label}
@@ -76,78 +57,53 @@ export default function Navbar() {
             })}
           </ul>
 
-          {/* CTA + Hamburger */}
           <div className="flex items-center gap-3">
             <a
               href={personal.resumeUrl}
-              className="hidden sm:flex btn-primary py-2 px-4 text-sm"
-              target="_blank"
-              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors"
             >
               Resume
             </a>
-
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden p-2 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors"
+              className="md:hidden p-2 text-gray-600 hover:text-gray-900"
               aria-label="Toggle menu"
             >
-              <div className="w-5 flex flex-col gap-1.5">
-                <span
-                  className={`block h-0.5 bg-current transition-transform duration-300 ${
-                    menuOpen ? 'rotate-45 translate-y-2' : ''
-                  }`}
-                />
-                <span
-                  className={`block h-0.5 bg-current transition-opacity duration-300 ${
-                    menuOpen ? 'opacity-0' : ''
-                  }`}
-                />
-                <span
-                  className={`block h-0.5 bg-current transition-transform duration-300 ${
-                    menuOpen ? '-rotate-45 -translate-y-2' : ''
-                  }`}
-                />
-              </div>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {menuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        <div
-          className={`md:hidden transition-all duration-300 overflow-hidden ${
-            menuOpen ? 'max-h-screen pb-4' : 'max-h-0'
-          }`}
-        >
-          <ul className="flex flex-col gap-1 pt-2">
-            {navLinks.map((link) => {
-              const id = link.href.slice(1);
-              const isActive = activeSection === id;
-              return (
+        {menuOpen && (
+          <div className="md:hidden border-t border-gray-100 py-3">
+            <ul className="flex flex-col gap-1">
+              {navLinks.map((link) => (
                 <li key={link.href}>
                   <button
                     onClick={() => handleNavClick(link.href)}
-                    className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-                      isActive
-                        ? 'text-blue-400 bg-blue-500/10'
-                        : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
-                    }`}
+                    className="w-full text-left px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900"
                   >
                     {link.label}
                   </button>
                 </li>
-              );
-            })}
-            <li className="pt-2">
-              <a
-                href={personal.resumeUrl}
-                className="btn-primary w-full justify-center text-sm py-2.5"
-              >
-                Download Resume
-              </a>
-            </li>
-          </ul>
-        </div>
+              ))}
+              <li className="pt-2">
+                <a
+                  href={personal.resumeUrl}
+                  className="block px-3 py-2 text-sm font-medium text-blue-600"
+                >
+                  Download Resume
+                </a>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </nav>
   );
