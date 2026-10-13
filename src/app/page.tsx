@@ -100,7 +100,7 @@ export default function Home() {
       </nav>
 
       {/* Hero */}
-      <section id="home" className="min-h-[calc(100vh-57px)] flex items-center px-8 py-16">
+      <section id="home" className="px-8 py-20">
         <div className="max-w-5xl w-full mx-auto grid md:grid-cols-5 gap-12 items-center">
 
           {/* Left */}
@@ -183,7 +183,7 @@ export default function Home() {
       </section>
 
       {/* Projects */}
-      <section id="projects" className="px-8 py-16 border-t border-white/10">
+      <section id="projects" className="px-8 py-12 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
           <p className="text-green-400/60 text-sm font-mono mb-2">// work</p>
           <h2 className="text-3xl font-bold text-white mb-10">Projects</h2>
@@ -212,7 +212,7 @@ export default function Home() {
       </section>
 
       {/* Published Apps */}
-      <section id="apps" className="px-8 py-16 border-t border-white/10">
+      <section id="apps" className="px-8 py-12 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
           <p className="text-green-400/60 text-sm font-mono mb-2">// deployed</p>
           <h2 className="text-3xl font-bold text-white mb-8">Published Apps</h2>
@@ -246,7 +246,7 @@ export default function Home() {
       </section>
 
       {/* Certifications */}
-      <section id="certifications" className="px-8 py-16 border-t border-white/10">
+      <section id="certifications" className="px-8 py-12 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
           <p className="text-green-400/60 text-sm font-mono mb-2">// credentials</p>
           <h2 className="text-3xl font-bold text-white mb-8">Certifications</h2>
