@@ -9,12 +9,12 @@ export const personal = {
   ],
   email: 'amolprakash11@gmail.com',
   github: 'https://github.com/dramolprakash',
-  linkedin: 'https://www.linkedin.com/in/dr-amol-prakash-mbbs-mshi-6120aa11b/',
+  linkedin: 'https://www.linkedin.com/in/dramolprakash/',
   tableau: 'https://public.tableau.com/app/profile/amol.prakash8604/vizzes',
   leetcode: 'https://leetcode.com/u/user0929aV/',
-  twitter: '#',
-  instagram: '#',
-  resumeUrl: '#',
+  twitter: 'https://x.com/amolkrxk',
+  instagram: 'https://www.instagram.com/amol.krxk/',
+  resumeUrl: '/assets/resume.pdf',
   calendlyUrl: '#',
 };
 
