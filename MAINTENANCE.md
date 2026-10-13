@@ -1,0 +1,153 @@
+# Site Maintenance Reference
+
+Everything on the site flows from two files. Start here before touching any component.
+
+---
+
+## The two files that run everything
+
+| File | What it controls |
+|------|-----------------|
+| `src/lib/data.ts` | All text content, URLs, projects, certifications, experience, education |
+| `public/assets/` | All images and static files (resume PDF, headshot, etc.) |
+
+You will almost never need to edit a component directly. Change content in `data.ts`; drop files into `public/assets/`.
+
+---
+
+## Links and URLs — where each one lives
+
+All links are in `src/lib/data.ts` under the `personal` object (lines 1–19).
+
+| What | Field | Current value | Status |
+|------|-------|---------------|--------|
+| GitHub profile | `personal.github` | `https://github.com/dramolprakash` | ✅ live |
+| LinkedIn | `personal.linkedin` | `https://www.linkedin.com/in/dr-amol-prakash-mbbs-mshi-6120aa11b/` | ✅ live |
+| Tableau public | `personal.tableau` | `https://public.tableau.com/app/profile/amol.prakash8604/vizzes` | ✅ live |
+| LeetCode | `personal.leetcode` | `https://leetcode.com/u/user0929aV/` | ✅ live |
+| Email | `personal.email` | `amolprakash11@gmail.com` | ✅ live |
+| Twitter / X | `personal.twitter` | `'#'` | ⚠️ placeholder |
+| Instagram | `personal.instagram` | `'#'` | ⚠️ placeholder |
+| Resume PDF | `personal.resumeUrl` | `'#'` | ⚠️ placeholder — see below |
+| Calendly | `personal.calendlyUrl` | `'#'` | ⚠️ placeholder (not shown on site yet) |
+
+**To update any link:** open `src/lib/data.ts`, find the field, replace the value.
+
+---
+
+## Assets — where files live and how to swap them
+
+| Asset | File path | Used in | How to replace |
+|-------|-----------|---------|----------------|
+| Headshot (hero + About) | `public/assets/headshot_circle.png` | `src/app/page.tsx` line ~130 | Drop a new PNG/JPG into `public/assets/`, rename it or update the `src` path in page.tsx |
+| Resume PDF | not yet added | `personal.resumeUrl` in data.ts | 1. Copy your PDF to `public/assets/resume.pdf` · 2. Set `resumeUrl: '/assets/resume.pdf'` in data.ts |
+
+**Naming convention:** keep asset filenames lowercase with underscores, e.g. `resume_2025.pdf`, `headshot_v2.png`.
+
+---
+
+## How to add or edit each section
+
+### Certifications
+File: `src/lib/data.ts` → `export const certifications` (line ~236)
+
+Each entry:
+```ts
+{
+  name: 'Certification Name',
+  issuer: 'Issuing Organization',
+  year: '2025',
+  badgePlaceholder: 'optional description',  // not shown on site, just a note
+},
+```
+Add a new `{ }` block inside the array. The site renders them all automatically in a 2-column grid.
+
+---
+
+### Projects
+File: `src/lib/data.ts` → `export const projects` (line ~66)
+
+Each entry:
+```ts
+{
+  id: 7,                          // increment from the last project
+  title: 'Project Name',
+  problem: 'One sentence: what problem does this solve?',
+  description: 'Longer description for future use.',
+  tools: ['Python', 'SQL'],       // shown as tags — keep to 5–6 max for display
+  metrics: ['91% F1-score', ...], // metrics[0] is shown as the callout on the right
+  github: 'https://github.com/dramolprakash/your-repo',
+  demo: '',                       // optional live demo URL
+  featured: false,
+  imagePlaceholder: '',
+},
+```
+
+**Routing rule:** any project whose `title` contains `'PillPal'` is grouped under **Mobile Apps**. Everything else goes under **ML / AI**. To create a third group, edit the filter constants at the top of `src/app/page.tsx` (lines 8–9).
+
+---
+
+### Published Apps (App Store / Play Store)
+File: `src/app/page.tsx` → `{/* Published Apps */}` section (~line 160)
+
+The two cards currently have `href="#"`. When you have your developer page URLs:
+1. Add two new fields to `personal` in `data.ts`:
+   ```ts
+   appStore: 'https://apps.apple.com/developer/your-id',
+   playStore: 'https://play.google.com/store/apps/developer?id=YourName',
+   ```
+2. In `page.tsx`, replace the two `href="#"` values with `personal.appStore` and `personal.playStore`, and remove the `onClick={(e) => e.preventDefault()}` guard.
+
+---
+
+### Education (hero section)
+File: `src/app/page.tsx` → `{/* Education */}` block (~line 73)
+
+The three lines are hardcoded directly in the component (not pulled from `data.ts`) for layout control. Edit them there:
+- Line 1: degree + university
+- Line 2: degree + university
+- Line 3: current role + employer
+
+If you add a third degree, copy one of the `<div className="flex items-center gap-2 ...">` rows and paste it in.
+
+---
+
+### Skill pills (hero section)
+File: `src/app/page.tsx` → `const topSkills` array (line ~9, removed in current version)
+
+Currently the hero does not show skill pills. The full skills list is still in `data.ts → skills` if you want to re-add a skill section later.
+
+---
+
+## Where each social link appears on the page
+
+| Location | Links shown |
+|----------|-------------|
+| Sticky nav (top) | github, linkedin, tableau, email (email hidden on mobile) |
+| Hero social row (below CTAs) | github, linkedin, twitter, instagram, tableau |
+| Footer | github, linkedin, twitter, instagram, leetcode |
+
+All of these read from `personal.*` in `data.ts` — update the field once and it updates everywhere.
+
+---
+
+## Deployment
+
+Push to `main` → GitHub Actions builds and deploys automatically to `https://dramolprakash.github.io`.
+
+Local dev: `npm run dev` → http://localhost:3000
+Build check: `npm run build` (output goes to `out/`)
+
+---
+
+## Quick checklist for common tasks
+
+- **New job / update current role** → `src/lib/data.ts` → `experience` array
+- **New certification** → `src/lib/data.ts` → `certifications` array
+- **New project** → `src/lib/data.ts` → `projects` array (increment `id`)
+- **Change resume PDF** → drop file in `public/assets/`, update `personal.resumeUrl`
+- **Change headshot** → drop new image in `public/assets/`, update path in `page.tsx` line ~130
+- **Update Twitter/Instagram** → `src/lib/data.ts` → `personal.twitter` / `personal.instagram`
+- **Update App Store links** → see "Published Apps" section above
+- **Change email** → `src/lib/data.ts` → `personal.email`
+- **Change tagline** → `src/lib/data.ts` → `personal.tagline`

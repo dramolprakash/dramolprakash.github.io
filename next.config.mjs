@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  transpilePackages: ['@lucasmarkes/hairline'],
 };
 
 export default nextConfig;
