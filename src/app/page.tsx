@@ -2,7 +2,7 @@
 
 import { useState, useEffect, type CSSProperties } from 'react';
 import Image from 'next/image';
-import { Terrain } from '@lucasmarkes/hairline/react';
+import { Terrain, Slow } from '@lucasmarkes/hairline/react';
 import { personal, projects, certifications } from '@/lib/data';
 
 const mlProjects     = projects.filter((p) => p.group === 'ml');
@@ -198,10 +198,10 @@ export default function Home() {
 
           {/* Right: photo + terrain (terrain hidden on mobile) */}
           <div className="md:col-span-2 flex flex-col items-center gap-5">
-            <div className="relative w-52 h-52 sm:w-60 sm:h-60 rounded-full overflow-hidden border border-green-400/20 ring-4 ring-green-400/5 flex-shrink-0">
+            <div className="relative w-80 h-80 sm:w-[360px] sm:h-[360px] overflow-hidden border border-green-400/20 rounded-lg flex-shrink-0">
               <Image src="/assets/headshot_circle.png" alt="Dr. Amol Prakash" fill className="object-cover" priority />
             </div>
-            <div className="w-full rounded overflow-hidden hidden md:block" style={terrainVars}>
+            <div className="w-full rounded overflow-hidden hidden md:block h-44" style={terrainVars}>
               <Terrain intensity={0.6} play theme="dark" />
             </div>
           </div>
@@ -283,6 +283,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Slow widget */}
+      <div className="border-t border-white/10 overflow-hidden h-44" style={terrainVars}>
+        <Slow intensity={0.5} play theme="dark" />
+      </div>
 
       {/* Footer */}
       <footer className="px-8 py-6 border-t border-white/10 flex items-center justify-between text-sm text-gray-500 font-mono">
