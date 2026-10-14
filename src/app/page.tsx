@@ -163,12 +163,7 @@ export default function Home() {
                   <span className="text-gray-700">—</span>
                   <span className="text-gray-500">Uzhhorod National University</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm font-mono">
-                  <span className="text-green-400">▸</span>
-                  <span className="text-gray-300">Clinical Data Analyst II</span>
-                  <span className="text-gray-700">@</span>
-                  <span className="text-gray-500">IU School of Medicine</span>
-                </div>
+
               </div>
             </div>
 
