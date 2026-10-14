@@ -201,7 +201,7 @@ export default function Home() {
             <div className="relative w-80 h-80 sm:w-[360px] sm:h-[360px] overflow-hidden border border-green-400/20 rounded-lg flex-shrink-0">
               <Image src="/assets/headshot_circle.png" alt="Dr. Amol Prakash" fill className="object-cover" priority />
             </div>
-            <div className="w-full rounded overflow-hidden hidden md:block h-44" style={terrainVars}>
+            <div className="w-full rounded overflow-hidden hidden md:block" style={terrainVars}>
               <Terrain intensity={0.6} play theme="dark" />
             </div>
           </div>
@@ -285,7 +285,7 @@ export default function Home() {
       </section>
 
       {/* Slow widget */}
-      <div className="border-t border-white/10 overflow-hidden h-44" style={terrainVars}>
+      <div className="border-t border-white/10 overflow-hidden" style={terrainVars}>
         <Slow intensity={0.5} play theme="dark" />
       </div>
 
