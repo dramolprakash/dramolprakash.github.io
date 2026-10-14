@@ -22,13 +22,13 @@ All links are in `src/lib/data.ts` under the `personal` object (lines 1–19).
 | What | Field | Current value | Status |
 |------|-------|---------------|--------|
 | GitHub profile | `personal.github` | `https://github.com/dramolprakash` | ✅ live |
-| LinkedIn | `personal.linkedin` | `https://www.linkedin.com/in/dr-amol-prakash-mbbs-mshi-6120aa11b/` | ✅ live |
+| LinkedIn | `personal.linkedin` | `https://www.linkedin.com/in/dramolprakash/` | ✅ live |
 | Tableau public | `personal.tableau` | `https://public.tableau.com/app/profile/amol.prakash8604/vizzes` | ✅ live |
 | LeetCode | `personal.leetcode` | `https://leetcode.com/u/user0929aV/` | ✅ live |
 | Email | `personal.email` | `amolprakash11@gmail.com` | ✅ live |
-| Twitter / X | `personal.twitter` | `'#'` | ⚠️ placeholder |
-| Instagram | `personal.instagram` | `'#'` | ⚠️ placeholder |
-| Resume PDF | `personal.resumeUrl` | `'#'` | ⚠️ placeholder — see below |
+| Twitter / X | `personal.twitter` | `https://x.com/amolkrxk` | ✅ live |
+| Instagram | `personal.instagram` | `https://www.instagram.com/amol.krxk/` | ✅ live |
+| Resume PDF | `personal.resumeUrl` | `/assets/resume.pdf` | ✅ live |
 | Calendly | `personal.calendlyUrl` | `'#'` | ⚠️ placeholder (not shown on site yet) |
 
 **To update any link:** open `src/lib/data.ts`, find the field, replace the value.
@@ -57,10 +57,10 @@ Each entry:
   name: 'Certification Name',
   issuer: 'Issuing Organization',
   year: '2025',
-  badgePlaceholder: 'optional description',  // not shown on site, just a note
+  url: '',  // paste your Credly / issuer verify URL here; leave '' until you have it
 },
 ```
-Add a new `{ }` block inside the array. The site renders them all automatically in a 2-column grid.
+Add a new `{ }` block inside the array. The site renders them as a vertical list matching the Projects layout. When `url` is set, the whole card becomes a link and a `verify ↗` badge appears.
 
 ---
 
@@ -71,19 +71,19 @@ Each entry:
 ```ts
 {
   id: 7,                          // increment from the last project
+  group: 'ml',                    // 'ml' | 'mobile' | 'web' — controls which section it appears in
   title: 'Project Name',
   problem: 'One sentence: what problem does this solve?',
   description: 'Longer description for future use.',
   tools: ['Python', 'SQL'],       // shown as tags — keep to 5–6 max for display
   metrics: ['91% F1-score', ...], // metrics[0] is shown as the callout on the right
   github: 'https://github.com/dramolprakash/your-repo',
-  demo: '',                       // optional live demo URL
+  demo: '',                       // optional live demo URL; shows 'live demo ↗' badge when set
   featured: false,
-  imagePlaceholder: '',
 },
 ```
 
-**Routing rule:** any project whose `title` contains `'PillPal'` is grouped under **Mobile Apps**. Everything else goes under **ML / AI**. To create a third group, edit the filter constants at the top of `src/app/page.tsx` (lines 8–9).
+**Routing rule:** projects are grouped by the `group` field — `'ml'` → ML / AI, `'mobile'` → Mobile Apps, `'web'` → Web Apps. To add a fourth group, add a new filter constant at the top of `src/app/page.tsx` and a new `<div>` block in the Projects section.
 
 ---
 
@@ -111,11 +111,6 @@ The three lines are hardcoded directly in the component (not pulled from `data.t
 If you add a third degree, copy one of the `<div className="flex items-center gap-2 ...">` rows and paste it in.
 
 ---
-
-### Skill pills (hero section)
-File: `src/app/page.tsx` → `const topSkills` array (line ~9, removed in current version)
-
-Currently the hero does not show skill pills. The full skills list is still in `data.ts → skills` if you want to re-add a skill section later.
 
 ---
 

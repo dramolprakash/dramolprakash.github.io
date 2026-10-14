@@ -18,6 +18,37 @@ const terrainVars: CSSProperties = {
 } as CSSProperties;
 
 type Project = (typeof projects)[number];
+type Cert = (typeof certifications)[number];
+
+function CertCard({ cert: c }: { cert: Cert }) {
+  const inner = (
+    <div className="flex items-start gap-4 p-4 border border-white/10 rounded hover:border-green-400/40 hover:bg-white/[0.03] transition-all group">
+      <span className="text-green-400 font-mono mt-0.5 shrink-0">→</span>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-white font-medium text-base group-hover:text-green-400 transition-colors">
+            {c.name}
+          </span>
+          {c.url && (
+            <span className="text-sm px-2 py-0.5 border border-green-400/40 text-green-400 rounded font-mono hover:bg-green-400/10 transition-colors shrink-0">
+              verify ↗
+            </span>
+          )}
+        </div>
+        <p className="text-gray-400 text-sm mt-1 font-mono">{c.issuer}</p>
+      </div>
+      <span className="text-green-400 text-sm font-mono whitespace-nowrap shrink-0 hidden sm:block">{c.year}</span>
+    </div>
+  );
+
+  return c.url ? (
+    <a href={c.url} target="_blank" rel="noopener noreferrer" className="block">
+      {inner}
+    </a>
+  ) : (
+    <div>{inner}</div>
+  );
+}
 
 function ProjectCard({ project: p }: { project: Project }) {
   return (
@@ -250,12 +281,9 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           <p className="text-green-400/60 text-sm font-mono mb-2">// credentials</p>
           <h2 className="text-3xl font-bold text-white mb-8">Certifications</h2>
-          <div className="grid sm:grid-cols-2 gap-3">
+          <div className="space-y-3">
             {certifications.map((cert) => (
-              <div key={cert.name} className="p-4 border border-white/10 rounded hover:border-green-400/30 transition-colors">
-                <p className="text-white text-base font-medium">{cert.name}</p>
-                <p className="text-gray-400 text-sm mt-1 font-mono">{cert.issuer} · {cert.year}</p>
-              </div>
+              <CertCard key={cert.name} cert={cert} />
             ))}
           </div>
         </div>
