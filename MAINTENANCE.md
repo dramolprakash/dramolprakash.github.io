@@ -39,8 +39,8 @@ All links are in `src/lib/data.ts` under the `personal` object (lines 1–19).
 
 | Asset | File path | Used in | How to replace |
 |-------|-----------|---------|----------------|
-| Headshot (hero + About) | `public/assets/headshot_circle.png` | `src/app/page.tsx` line ~130 | Drop a new PNG/JPG into `public/assets/`, rename it or update the `src` path in page.tsx |
-| Resume PDF | not yet added | `personal.resumeUrl` in data.ts | 1. Copy your PDF to `public/assets/resume.pdf` · 2. Set `resumeUrl: '/assets/resume.pdf'` in data.ts |
+| Headshot | `public/assets/headshot_circle.png` | `src/app/page.tsx` | Drop a rectangular PNG/JPG into `public/assets/`, then update the `src` path in page.tsx. The current file is a circular-masked PNG — swap it for a straight rectangular crop to match the non-circular display. |
+| Resume PDF | `public/assets/resume.pdf` | `personal.resumeUrl` in data.ts | Drop an updated PDF into `public/assets/resume.pdf` (overwrite). No code change needed. |
 
 **Naming convention:** keep asset filenames lowercase with underscores, e.g. `resume_2025.pdf`, `headshot_v2.png`.
 
@@ -101,16 +101,13 @@ The two cards currently have `href="#"`. When you have your developer page URLs:
 ---
 
 ### Education (hero section)
-File: `src/app/page.tsx` → `{/* Education */}` block (~line 73)
+File: `src/app/page.tsx` → `{/* Education */}` block
 
-The three lines are hardcoded directly in the component (not pulled from `data.ts`) for layout control. Edit them there:
+The two lines are hardcoded directly in the component (not pulled from `data.ts`) for layout control. Edit them there:
 - Line 1: degree + university
 - Line 2: degree + university
-- Line 3: current role + employer
 
-If you add a third degree, copy one of the `<div className="flex items-center gap-2 ...">` rows and paste it in.
-
----
+To add a third line (e.g. a role or extra degree), copy one of the `<div className="flex items-center gap-2 ...">` rows and paste it in.
 
 ---
 
