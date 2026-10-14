@@ -10,34 +10,36 @@ const mobileProjects = projects.filter((p) => p.group === 'mobile');
 const webProjects    = projects.filter((p) => p.group === 'web');
 
 const terrainVars: CSSProperties = {
-  '--hairline-plate': '#0f172a',
-  '--hairline-hi':    '#bef264',
-  '--hairline-edge':  '#3f6212',
-  '--hairline-mid':   '#365314',
-  '--hairline-lo':    '#1a2e05',
+  '--hairline-plate': '#EBDBBC',
+  '--hairline-hi':    '#94a3b8',
+  '--hairline-edge':  '#64748b',
+  '--hairline-mid':   '#334155',
+  '--hairline-lo':    '#0f172a',
 } as CSSProperties;
 
 type Project = (typeof projects)[number];
-type Cert = (typeof certifications)[number];
+type Cert    = (typeof certifications)[number];
+
+const CURSOR_COLORS = ['#E63946', '#3A86FF', '#9B5DE5', '#2A9D8F', '#FF6B6B', '#F72585'];
 
 function CertCard({ cert: c }: { cert: Cert }) {
   const inner = (
-    <div className="flex items-start gap-4 p-4 border border-white/10 rounded hover:border-lime-300/40 hover:bg-white/[0.03] transition-all group">
-      <span className="text-lime-300 font-mono mt-0.5 shrink-0">→</span>
+    <div className="flex items-start gap-4 p-4 border border-black/[0.12] rounded hover:border-[#3D2B1F]/50 hover:bg-black/[0.05] transition-all group">
+      <span className="text-[#3D2B1F] mt-0.5 shrink-0">→</span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-white font-medium text-base group-hover:text-lime-300 transition-colors">
+          <span className="text-[#3D2B1F] font-medium text-base group-hover:text-[#3D2B1F] transition-colors">
             {c.name}
           </span>
           {c.url && (
-            <span className="text-sm px-2 py-0.5 border border-lime-300/40 text-lime-300 rounded font-mono hover:bg-lime-300/10 transition-colors shrink-0">
+            <span className="text-sm px-2 py-0.5 border border-[#3D2B1F]/30 text-[#3D2B1F] rounded hover:bg-[#3D2B1F]/[0.07] transition-colors shrink-0">
               verify ↗
             </span>
           )}
         </div>
-        <p className="text-gray-400 text-sm mt-1 font-mono">{c.issuer}</p>
+        <p className="text-gray-600 text-sm mt-1">{c.issuer}</p>
       </div>
-      <span className="text-lime-300 text-sm font-mono whitespace-nowrap shrink-0 hidden sm:block">{c.year}</span>
+      <span className="text-[#3D2B1F] text-sm whitespace-nowrap shrink-0 hidden sm:block">{c.year}</span>
     </div>
   );
 
@@ -52,15 +54,15 @@ function CertCard({ cert: c }: { cert: Cert }) {
 
 function ProjectCard({ project: p }: { project: Project }) {
   return (
-    <div className="flex items-start gap-4 p-4 border border-white/10 rounded hover:border-lime-300/40 hover:bg-white/[0.03] transition-all group">
-      <span className="text-lime-300 font-mono mt-0.5 shrink-0">→</span>
+    <div className="flex items-start gap-4 p-4 border border-black/[0.12] rounded hover:border-[#3D2B1F]/50 hover:bg-black/[0.05] transition-all group">
+      <span className="text-[#3D2B1F] mt-0.5 shrink-0">→</span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
           <a
             href={p.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white font-medium text-base group-hover:text-lime-300 transition-colors"
+            className="text-[#3D2B1F] font-medium text-base group-hover:text-[#3D2B1F] transition-colors"
           >
             {p.title}
           </a>
@@ -70,166 +72,188 @@ function ProjectCard({ project: p }: { project: Project }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="text-sm px-2 py-0.5 border border-lime-300/40 text-lime-300 rounded font-mono hover:bg-lime-300/10 transition-colors shrink-0"
+              className="text-sm px-2 py-0.5 border border-[#3D2B1F]/30 text-[#3D2B1F] rounded hover:bg-[#3D2B1F]/[0.07] transition-colors shrink-0"
             >
               live demo ↗
             </a>
           )}
         </div>
-        <p className="text-gray-400 text-sm mt-1 leading-snug">{p.problem}</p>
+        <p className="text-gray-600 text-sm mt-1 leading-snug">{p.problem}</p>
         <div className="flex flex-wrap gap-1 mt-2">
           {p.tools.slice(0, 5).map((t) => (
-            <span key={t} className="text-sm px-2 py-0.5 bg-white/5 text-gray-400 border border-white/10 rounded font-mono">{t}</span>
+            <span key={t} className="text-sm px-2 py-0.5 bg-black/[0.07] text-gray-700 border border-black/[0.12] rounded">{t}</span>
           ))}
         </div>
       </div>
-      <span className="text-lime-300 text-sm font-mono whitespace-nowrap shrink-0 hidden sm:block">{p.metrics[0]}</span>
+      <span className="text-[#3D2B1F] text-sm whitespace-nowrap shrink-0 hidden sm:block">{p.metrics[0]}</span>
     </div>
   );
 }
 
 export default function Home() {
-  const [mouse, setMouse] = useState({ x: -1000, y: -1000 });
-  const [blink, setBlink] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => setMouse({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', onMove);
-    return () => window.removeEventListener('mousemove', onMove);
-  }, []);
-
-  useEffect(() => {
-    const id = setInterval(() => setBlink((b) => !b), 530);
+    const id = setInterval(() => setTick((t) => t + 1), 530);
     return () => clearInterval(id);
   }, []);
 
-  return (
-    <div className="min-h-screen bg-slate-950 text-white relative overflow-x-hidden selection:bg-lime-300 selection:text-black">
+  const cursorVisible = tick % 2 === 0;
+  const cursorColor   = CURSOR_COLORS[Math.floor(tick / 2) % CURSOR_COLORS.length];
 
-      {/* Cursor glow */}
-      <div
-        className="pointer-events-none fixed z-50 rounded-full"
-        style={{
-          width: 400,
-          height: 400,
-          left: mouse.x - 200,
-          top: mouse.y - 200,
-          background: 'radial-gradient(circle, rgba(190,242,100,0.07) 0%, transparent 65%)',
-          transition: 'left 60ms linear, top 60ms linear',
-        }}
-      />
+  return (
+    <div className="min-h-screen bg-[#EBDBBC] text-[#3D2B1F] relative overflow-x-hidden selection:bg-[#3D2B1F]/20 selection:text-[#3D2B1F]">
 
       {/* Nav */}
-      <nav className="px-8 py-4 flex items-center justify-between border-b border-white/10 sticky top-0 bg-slate-950/90 backdrop-blur-sm z-40">
-        <span className="text-lime-300 text-base font-mono">~/amolprakash</span>
-        <div className="flex items-center gap-5 text-sm font-mono">
-          <a href={personal.github}   target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-lime-300 transition-colors">github</a>
-          <a href={personal.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-lime-300 transition-colors">linkedin</a>
-          <a href={personal.tableau}  target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-lime-300 transition-colors">tableau</a>
-          <a href={`mailto:${personal.email}`}        className="text-gray-500 hover:text-lime-300 transition-colors hidden sm:inline">email</a>
+      <nav className="px-6 sm:px-8 border-b border-black/[0.12] sticky top-0 bg-[#EBDBBC]/95 backdrop-blur-sm z-40">
+        <div className="flex items-center justify-between py-4">
+          <a href="#home" className="font-semibold text-xl text-[#3D2B1F] hover:opacity-70 transition-opacity">
+            Amol Prakash
+          </a>
+
+          {/* Desktop nav links */}
+          <div className="hidden sm:flex items-center gap-6 text-sm text-gray-600">
+            <a href="#projects"       className="hover:text-[#3D2B1F] transition-colors">Projects</a>
+            <a href="#apps"           className="hover:text-[#3D2B1F] transition-colors">Apps</a>
+            <a href="#certifications" className="hover:text-[#3D2B1F] transition-colors">Certifications</a>
+            <a href={personal.resumeUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#3D2B1F] transition-colors">Resume</a>
+            <a href={`mailto:${personal.email}`} className="hover:text-[#3D2B1F] transition-colors">Contact</a>
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="sm:hidden text-gray-600 hover:text-[#3D2B1F] transition-colors p-1"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {menuOpen ? (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6"  y2="18"/>
+                <line x1="6"  y1="6" x2="18" y2="18"/>
+              </svg>
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="6"  x2="21" y2="6"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+              </svg>
+            )}
+          </button>
         </div>
+
+        {/* Mobile dropdown */}
+        {menuOpen && (
+          <div className="sm:hidden flex flex-col border-t border-black/[0.08] text-sm text-gray-600 pb-2">
+            <a href="#projects"       onClick={() => setMenuOpen(false)} className="px-2 py-3 hover:text-[#3D2B1F] transition-colors border-b border-black/[0.08]">Projects</a>
+            <a href="#apps"           onClick={() => setMenuOpen(false)} className="px-2 py-3 hover:text-[#3D2B1F] transition-colors border-b border-black/[0.08]">Apps</a>
+            <a href="#certifications" onClick={() => setMenuOpen(false)} className="px-2 py-3 hover:text-[#3D2B1F] transition-colors border-b border-black/[0.08]">Certifications</a>
+            <a href={personal.resumeUrl} target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} className="px-2 py-3 hover:text-[#3D2B1F] transition-colors border-b border-black/[0.08]">Resume</a>
+            <a href={`mailto:${personal.email}`} onClick={() => setMenuOpen(false)} className="px-2 py-3 hover:text-[#3D2B1F] transition-colors">Contact</a>
+          </div>
+        )}
       </nav>
 
       {/* Hero */}
-      <section id="home" className="px-8 py-20">
+      <section id="home" className="px-6 sm:px-8 py-16 sm:py-20">
         <div className="max-w-5xl w-full mx-auto grid md:grid-cols-5 gap-12 items-center">
 
           {/* Left */}
           <div className="md:col-span-3 space-y-7">
             <div>
-              <p className="text-lime-300/60 text-sm font-mono mb-3">// hello world</p>
-              <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-tight leading-tight">
+              <h1 className="font-bold tracking-tight text-5xl sm:text-6xl text-[#3D2B1F] leading-tight">
                 Dr. Amol<br />Prakash
-                <span className="text-lime-300" style={{ opacity: blink ? 1 : 0, transition: 'opacity 0.08s' }}>_</span>
+                <span style={{ opacity: cursorVisible ? 1 : 0, color: cursorColor, transition: 'opacity 0.08s' }}>_</span>
               </h1>
-              <p className="text-lime-300/80 text-base mt-3 font-mono">
-                &gt; Data Scientist · Healthcare Analytics · AI in Medicine
+              <p className="text-gray-600 text-base mt-3">
+                Data Scientist · Healthcare Analytics · AI in Medicine
               </p>
             </div>
 
             {/* Education */}
             <div>
-              <p className="text-gray-600 text-sm uppercase tracking-widest font-mono mb-3">Education</p>
+              <p className="text-gray-600 text-xs font-medium uppercase tracking-wide mb-3">Education</p>
               <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm font-mono">
-                  <span className="text-lime-300">▸</span>
-                  <span className="text-gray-300">M.S. Health Informatics</span>
-                  <span className="text-gray-700">—</span>
-                  <span className="text-gray-500">Indiana University</span>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-[#3D2B1F]">–</span>
+                  <span className="text-gray-700">M.S. Health Informatics</span>
+                  <span className="text-[#3D2B1F]/30">—</span>
+                  <span className="text-gray-600">Indiana University</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm font-mono">
-                  <span className="text-lime-300">▸</span>
-                  <span className="text-gray-300">M.B.B.S.</span>
-                  <span className="text-gray-700">—</span>
-                  <span className="text-gray-500">Uzhhorod National University</span>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-[#3D2B1F]">–</span>
+                  <span className="text-gray-700">M.B.B.S.</span>
+                  <span className="text-[#3D2B1F]/30">—</span>
+                  <span className="text-gray-600">Uzhhorod National University</span>
                 </div>
-
               </div>
             </div>
 
-            <p className="text-gray-400 leading-relaxed max-w-md text-base">{personal.tagline}</p>
+            <p className="text-gray-600 leading-relaxed max-w-md text-base">{personal.tagline}</p>
 
-            {/* CTAs */}
+            {/* CTAs — exactly 2 */}
             <div className="flex flex-wrap gap-3">
-              <a href="#projects" className="px-5 py-2.5 bg-lime-300 text-black text-base font-bold font-mono rounded hover:bg-lime-200 transition-colors">
-                view_projects()
+              <a
+                href="#projects"
+                className="px-5 py-2.5 bg-[#3D2B1F] text-[#EBDBBC] text-base font-semibold rounded hover:bg-[#2D1F14] transition-colors"
+              >
+                View Projects
               </a>
-              <a href={personal.resumeUrl} className="px-5 py-2.5 border border-white/20 text-gray-400 text-base font-mono rounded hover:border-lime-300 hover:text-lime-300 transition-colors">
-                resume.pdf
-              </a>
-              <a href={`mailto:${personal.email}`} className="px-5 py-2.5 border border-white/20 text-gray-400 text-base font-mono rounded hover:border-lime-300 hover:text-lime-300 transition-colors">
-                contact()
+              <a
+                href={`mailto:${personal.email}`}
+                className="px-5 py-2.5 border border-[#3D2B1F]/40 text-[#3D2B1F] text-base rounded hover:border-[#3D2B1F] transition-colors"
+              >
+                Get in Touch
               </a>
             </div>
 
-            {/* Social links */}
-            <div className="flex items-center gap-4 text-sm font-mono flex-wrap">
-              <a href={personal.github}    target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-lime-300 transition-colors">github</a>
-              <span className="text-gray-800">·</span>
-              <a href={personal.linkedin}  target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-lime-300 transition-colors">linkedin</a>
-              <span className="text-gray-800">·</span>
-              <a href={personal.twitter}   target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-lime-300 transition-colors">twitter</a>
-              <span className="text-gray-800">·</span>
-              <a href={personal.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-lime-300 transition-colors">instagram</a>
-              <span className="text-gray-800">·</span>
-              <a href={personal.tableau}   target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-lime-300 transition-colors">tableau</a>
+            {/* Social links — small and secondary */}
+            <div className="flex items-center gap-4 text-xs text-gray-600 flex-wrap">
+              <a href={personal.github}    target="_blank" rel="noopener noreferrer" className="hover:text-[#3D2B1F] transition-colors">github</a>
+              <span className="text-[#3D2B1F]/30">·</span>
+              <a href={personal.linkedin}  target="_blank" rel="noopener noreferrer" className="hover:text-[#3D2B1F] transition-colors">linkedin</a>
+              <span className="text-[#3D2B1F]/30">·</span>
+              <a href={personal.twitter}   target="_blank" rel="noopener noreferrer" className="hover:text-[#3D2B1F] transition-colors">twitter</a>
+              <span className="text-[#3D2B1F]/30">·</span>
+              <a href={personal.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-[#3D2B1F] transition-colors">instagram</a>
+              <span className="text-[#3D2B1F]/30">·</span>
+              <a href={personal.tableau}   target="_blank" rel="noopener noreferrer" className="hover:text-[#3D2B1F] transition-colors">tableau</a>
             </div>
           </div>
 
-          {/* Right: photo + terrain (terrain hidden on mobile) */}
+          {/* Right: photo + terrain */}
           <div className="md:col-span-2 flex flex-col items-center gap-5">
-            <div className="relative w-80 h-80 sm:w-[360px] sm:h-[360px] overflow-hidden border border-lime-300/20 rounded-lg flex-shrink-0">
+            <div className="relative w-80 h-80 sm:w-[360px] sm:h-[360px] overflow-hidden border border-black/[0.12] rounded-lg shadow-sm flex-shrink-0">
               <Image src="/assets/headshot_circle.png" alt="Dr. Amol Prakash" fill className="object-cover" priority />
             </div>
-            <div className="w-full rounded overflow-hidden hidden md:block" style={terrainVars}>
-              <Terrain intensity={0.6} play theme="dark" />
+            <div className="w-full bg-[#EBDBBC] rounded overflow-hidden hidden md:block" style={terrainVars}>
+              <Terrain intensity={0.6} play theme="light" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Projects */}
-      <section id="projects" className="px-8 py-12 border-t border-white/10">
+      <section id="projects" className="px-6 sm:px-8 py-12 border-t border-black/[0.12]">
         <div className="max-w-5xl mx-auto">
-          <p className="text-lime-300/60 text-sm font-mono mb-2">// work</p>
-          <h2 className="text-3xl font-bold text-white mb-10">Projects</h2>
+          <h2 className="font-bold text-3xl text-[#3D2B1F] mb-10">Projects</h2>
 
           <div className="mb-10">
-            <p className="text-gray-600 text-sm uppercase tracking-widest font-mono mb-4">ML / AI</p>
+            <p className="text-gray-600 text-xs font-medium uppercase tracking-wide mb-4">ML / AI</p>
             <div className="space-y-3">
               {mlProjects.map((p) => <ProjectCard key={p.id} project={p} />)}
             </div>
           </div>
 
           <div className="mb-10">
-            <p className="text-gray-600 text-sm uppercase tracking-widest font-mono mb-4">Mobile Apps</p>
+            <p className="text-gray-600 text-xs font-medium uppercase tracking-wide mb-4">Mobile Apps</p>
             <div className="space-y-3">
               {mobileProjects.map((p) => <ProjectCard key={p.id} project={p} />)}
             </div>
           </div>
 
           <div>
-            <p className="text-gray-600 text-sm uppercase tracking-widest font-mono mb-4">Web Apps</p>
+            <p className="text-gray-600 text-xs font-medium uppercase tracking-wide mb-4">Web Apps</p>
             <div className="space-y-3">
               {webProjects.map((p) => <ProjectCard key={p.id} project={p} />)}
             </div>
@@ -238,44 +262,32 @@ export default function Home() {
       </section>
 
       {/* Published Apps */}
-      <section id="apps" className="px-8 py-12 border-t border-white/10">
+      <section id="apps" className="px-6 sm:px-8 py-12 border-t border-black/[0.12]">
         <div className="max-w-5xl mx-auto">
-          <p className="text-lime-300/60 text-sm font-mono mb-2">// deployed</p>
-          <h2 className="text-3xl font-bold text-white mb-8">Published Apps</h2>
+          <h2 className="font-bold text-3xl text-[#3D2B1F] mb-8">Published Apps</h2>
           <div className="grid sm:grid-cols-2 gap-4">
-            <a
-              href="#"
-              onClick={(e) => e.preventDefault()}
-              className="flex items-center gap-4 p-5 border border-white/10 rounded hover:border-lime-300/40 hover:bg-white/[0.03] transition-all group cursor-pointer"
-              title="Coming soon — add your App Store developer link in data.ts"
-            >
+            <div className="flex items-center gap-4 p-5 border border-black/[0.12] rounded">
               <span className="text-3xl shrink-0">🍎</span>
               <div>
-                <p className="text-white font-medium text-base group-hover:text-lime-300 transition-colors">Apple App Store</p>
-                <p className="text-gray-400 text-sm mt-1 font-mono">view published iOS apps →</p>
+                <p className="text-[#3D2B1F] font-medium text-base">Apple App Store</p>
+                <p className="text-gray-600 text-sm mt-1">Coming soon</p>
               </div>
-            </a>
-            <a
-              href="#"
-              onClick={(e) => e.preventDefault()}
-              className="flex items-center gap-4 p-5 border border-white/10 rounded hover:border-lime-300/40 hover:bg-white/[0.03] transition-all group cursor-pointer"
-              title="Coming soon — add your Play Store developer link in data.ts"
-            >
+            </div>
+            <div className="flex items-center gap-4 p-5 border border-black/[0.12] rounded">
               <span className="text-3xl shrink-0">🤖</span>
               <div>
-                <p className="text-white font-medium text-base group-hover:text-lime-300 transition-colors">Google Play Store</p>
-                <p className="text-gray-400 text-sm mt-1 font-mono">view published Android apps →</p>
+                <p className="text-[#3D2B1F] font-medium text-base">Google Play Store</p>
+                <p className="text-gray-600 text-sm mt-1">Coming soon</p>
               </div>
-            </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Certifications */}
-      <section id="certifications" className="px-8 py-12 border-t border-white/10">
+      <section id="certifications" className="px-6 sm:px-8 py-12 border-t border-black/[0.12]">
         <div className="max-w-5xl mx-auto">
-          <p className="text-lime-300/60 text-sm font-mono mb-2">// credentials</p>
-          <h2 className="text-3xl font-bold text-white mb-8">Certifications</h2>
+          <h2 className="font-bold text-3xl text-[#3D2B1F] mb-8">Certifications</h2>
           <div className="space-y-3">
             {certifications.map((cert) => (
               <CertCard key={cert.name} cert={cert} />
@@ -285,19 +297,19 @@ export default function Home() {
       </section>
 
       {/* Slow widget */}
-      <div className="border-t border-white/10 overflow-hidden" style={terrainVars}>
-        <Slow intensity={0.5} play theme="dark" />
+      <div className="border-t border-black/[0.12] bg-[#EBDBBC] overflow-hidden" style={terrainVars}>
+        <Slow intensity={0.5} play theme="light" />
       </div>
 
       {/* Footer */}
-      <footer className="px-8 py-6 border-t border-white/10 flex items-center justify-between text-sm text-gray-500 font-mono">
+      <footer className="px-6 sm:px-8 py-6 border-t border-black/[0.12] flex items-center justify-between text-sm text-gray-600">
         <span>© {new Date().getFullYear()} Dr. Amol Prakash</span>
         <div className="flex gap-4 flex-wrap justify-end">
-          <a href={personal.github}    target="_blank" rel="noopener noreferrer" className="hover:text-lime-300 transition-colors">github</a>
-          <a href={personal.linkedin}  target="_blank" rel="noopener noreferrer" className="hover:text-lime-300 transition-colors">linkedin</a>
-          <a href={personal.twitter}   target="_blank" rel="noopener noreferrer" className="hover:text-lime-300 transition-colors">twitter</a>
-          <a href={personal.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-lime-300 transition-colors">instagram</a>
-          <a href={personal.leetcode}  target="_blank" rel="noopener noreferrer" className="hover:text-lime-300 transition-colors">leetcode</a>
+          <a href={personal.github}    target="_blank" rel="noopener noreferrer" className="hover:text-[#3D2B1F] transition-colors">github</a>
+          <a href={personal.linkedin}  target="_blank" rel="noopener noreferrer" className="hover:text-[#3D2B1F] transition-colors">linkedin</a>
+          <a href={personal.twitter}   target="_blank" rel="noopener noreferrer" className="hover:text-[#3D2B1F] transition-colors">twitter</a>
+          <a href={personal.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-[#3D2B1F] transition-colors">instagram</a>
+          <a href={personal.leetcode}  target="_blank" rel="noopener noreferrer" className="hover:text-[#3D2B1F] transition-colors">leetcode</a>
         </div>
       </footer>
     </div>

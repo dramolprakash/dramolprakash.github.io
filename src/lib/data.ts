@@ -321,16 +321,16 @@ export const certifications = [
   // ── 2024 ──────────────────────────────────────────────────────────────────
   
   {
-    name: 'Intermediate SQL',
-    issuer: 'DataCamp',
-    year: 'Dec 2024',
-    url: '',
-  },
-  {
     name: 'Introduction to SQL',
     issuer: 'DataCamp',
     year: 'Dec 2024',
     url: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/7c92ead9d38985df1654c6b36e2fea4dc20097e9?utm_medium=organic_social&utm_campaign=sharewidget&utm_content=soa',
+  },
+  {
+    name: 'Intermediate SQL',
+    issuer: 'DataCamp',
+    year: 'Dec 2024',
+    url: '',
   },
   
   {
