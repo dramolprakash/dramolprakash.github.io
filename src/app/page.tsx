@@ -10,7 +10,7 @@ const mobileProjects = projects.filter((p) => p.group === 'mobile');
 const webProjects    = projects.filter((p) => p.group === 'web');
 
 const terrainVars: CSSProperties = {
-  '--hairline-plate': '#000000',
+  '--hairline-plate': '#0f172a',
   '--hairline-hi':    '#bef264',
   '--hairline-edge':  '#3f6212',
   '--hairline-mid':   '#365314',
@@ -104,7 +104,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-x-hidden selection:bg-lime-300 selection:text-black">
+    <div className="min-h-screen bg-slate-950 text-white relative overflow-x-hidden selection:bg-lime-300 selection:text-black">
 
       {/* Cursor glow */}
       <div
@@ -120,7 +120,7 @@ export default function Home() {
       />
 
       {/* Nav */}
-      <nav className="px-8 py-4 flex items-center justify-between border-b border-white/10 sticky top-0 bg-black/90 backdrop-blur-sm z-40">
+      <nav className="px-8 py-4 flex items-center justify-between border-b border-white/10 sticky top-0 bg-slate-950/90 backdrop-blur-sm z-40">
         <span className="text-lime-300 text-base font-mono">~/amolprakash</span>
         <div className="flex items-center gap-5 text-sm font-mono">
           <a href={personal.github}   target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-lime-300 transition-colors">github</a>
