@@ -11,10 +11,10 @@ const webProjects    = projects.filter((p) => p.group === 'web');
 
 const terrainVars: CSSProperties = {
   '--hairline-plate': '#000000',
-  '--hairline-hi':    '#4ade80',
-  '--hairline-edge':  '#166534',
-  '--hairline-mid':   '#14532d',
-  '--hairline-lo':    '#052e16',
+  '--hairline-hi':    '#bef264',
+  '--hairline-edge':  '#3f6212',
+  '--hairline-mid':   '#365314',
+  '--hairline-lo':    '#1a2e05',
 } as CSSProperties;
 
 type Project = (typeof projects)[number];
@@ -22,22 +22,22 @@ type Cert = (typeof certifications)[number];
 
 function CertCard({ cert: c }: { cert: Cert }) {
   const inner = (
-    <div className="flex items-start gap-4 p-4 border border-white/10 rounded hover:border-green-400/40 hover:bg-white/[0.03] transition-all group">
-      <span className="text-green-400 font-mono mt-0.5 shrink-0">→</span>
+    <div className="flex items-start gap-4 p-4 border border-white/10 rounded hover:border-lime-300/40 hover:bg-white/[0.03] transition-all group">
+      <span className="text-lime-300 font-mono mt-0.5 shrink-0">→</span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-white font-medium text-base group-hover:text-green-400 transition-colors">
+          <span className="text-white font-medium text-base group-hover:text-lime-300 transition-colors">
             {c.name}
           </span>
           {c.url && (
-            <span className="text-sm px-2 py-0.5 border border-green-400/40 text-green-400 rounded font-mono hover:bg-green-400/10 transition-colors shrink-0">
+            <span className="text-sm px-2 py-0.5 border border-lime-300/40 text-lime-300 rounded font-mono hover:bg-lime-300/10 transition-colors shrink-0">
               verify ↗
             </span>
           )}
         </div>
         <p className="text-gray-400 text-sm mt-1 font-mono">{c.issuer}</p>
       </div>
-      <span className="text-green-400 text-sm font-mono whitespace-nowrap shrink-0 hidden sm:block">{c.year}</span>
+      <span className="text-lime-300 text-sm font-mono whitespace-nowrap shrink-0 hidden sm:block">{c.year}</span>
     </div>
   );
 
@@ -52,15 +52,15 @@ function CertCard({ cert: c }: { cert: Cert }) {
 
 function ProjectCard({ project: p }: { project: Project }) {
   return (
-    <div className="flex items-start gap-4 p-4 border border-white/10 rounded hover:border-green-400/40 hover:bg-white/[0.03] transition-all group">
-      <span className="text-green-400 font-mono mt-0.5 shrink-0">→</span>
+    <div className="flex items-start gap-4 p-4 border border-white/10 rounded hover:border-lime-300/40 hover:bg-white/[0.03] transition-all group">
+      <span className="text-lime-300 font-mono mt-0.5 shrink-0">→</span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
           <a
             href={p.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white font-medium text-base group-hover:text-green-400 transition-colors"
+            className="text-white font-medium text-base group-hover:text-lime-300 transition-colors"
           >
             {p.title}
           </a>
@@ -70,7 +70,7 @@ function ProjectCard({ project: p }: { project: Project }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="text-sm px-2 py-0.5 border border-green-400/40 text-green-400 rounded font-mono hover:bg-green-400/10 transition-colors shrink-0"
+              className="text-sm px-2 py-0.5 border border-lime-300/40 text-lime-300 rounded font-mono hover:bg-lime-300/10 transition-colors shrink-0"
             >
               live demo ↗
             </a>
@@ -83,7 +83,7 @@ function ProjectCard({ project: p }: { project: Project }) {
           ))}
         </div>
       </div>
-      <span className="text-green-400 text-sm font-mono whitespace-nowrap shrink-0 hidden sm:block">{p.metrics[0]}</span>
+      <span className="text-lime-300 text-sm font-mono whitespace-nowrap shrink-0 hidden sm:block">{p.metrics[0]}</span>
     </div>
   );
 }
@@ -104,7 +104,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-x-hidden selection:bg-green-400 selection:text-black">
+    <div className="min-h-screen bg-black text-white relative overflow-x-hidden selection:bg-lime-300 selection:text-black">
 
       {/* Cursor glow */}
       <div
@@ -114,19 +114,19 @@ export default function Home() {
           height: 400,
           left: mouse.x - 200,
           top: mouse.y - 200,
-          background: 'radial-gradient(circle, rgba(74,222,128,0.07) 0%, transparent 65%)',
+          background: 'radial-gradient(circle, rgba(190,242,100,0.07) 0%, transparent 65%)',
           transition: 'left 60ms linear, top 60ms linear',
         }}
       />
 
       {/* Nav */}
       <nav className="px-8 py-4 flex items-center justify-between border-b border-white/10 sticky top-0 bg-black/90 backdrop-blur-sm z-40">
-        <span className="text-green-400 text-base font-mono">~/amolprakash</span>
+        <span className="text-lime-300 text-base font-mono">~/amolprakash</span>
         <div className="flex items-center gap-5 text-sm font-mono">
-          <a href={personal.github}   target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-green-400 transition-colors">github</a>
-          <a href={personal.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-green-400 transition-colors">linkedin</a>
-          <a href={personal.tableau}  target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-green-400 transition-colors">tableau</a>
-          <a href={`mailto:${personal.email}`}        className="text-gray-500 hover:text-green-400 transition-colors hidden sm:inline">email</a>
+          <a href={personal.github}   target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-lime-300 transition-colors">github</a>
+          <a href={personal.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-lime-300 transition-colors">linkedin</a>
+          <a href={personal.tableau}  target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-lime-300 transition-colors">tableau</a>
+          <a href={`mailto:${personal.email}`}        className="text-gray-500 hover:text-lime-300 transition-colors hidden sm:inline">email</a>
         </div>
       </nav>
 
@@ -137,12 +137,12 @@ export default function Home() {
           {/* Left */}
           <div className="md:col-span-3 space-y-7">
             <div>
-              <p className="text-green-400/60 text-sm font-mono mb-3">// hello world</p>
+              <p className="text-lime-300/60 text-sm font-mono mb-3">// hello world</p>
               <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-tight leading-tight">
                 Dr. Amol<br />Prakash
-                <span className="text-green-400" style={{ opacity: blink ? 1 : 0, transition: 'opacity 0.08s' }}>_</span>
+                <span className="text-lime-300" style={{ opacity: blink ? 1 : 0, transition: 'opacity 0.08s' }}>_</span>
               </h1>
-              <p className="text-green-400/80 text-base mt-3 font-mono">
+              <p className="text-lime-300/80 text-base mt-3 font-mono">
                 &gt; Data Scientist · Healthcare Analytics · AI in Medicine
               </p>
             </div>
@@ -152,13 +152,13 @@ export default function Home() {
               <p className="text-gray-600 text-sm uppercase tracking-widest font-mono mb-3">Education</p>
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm font-mono">
-                  <span className="text-green-400">▸</span>
+                  <span className="text-lime-300">▸</span>
                   <span className="text-gray-300">M.S. Health Informatics</span>
                   <span className="text-gray-700">—</span>
                   <span className="text-gray-500">Indiana University</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm font-mono">
-                  <span className="text-green-400">▸</span>
+                  <span className="text-lime-300">▸</span>
                   <span className="text-gray-300">M.B.B.S.</span>
                   <span className="text-gray-700">—</span>
                   <span className="text-gray-500">Uzhhorod National University</span>
@@ -171,34 +171,34 @@ export default function Home() {
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-3">
-              <a href="#projects" className="px-5 py-2.5 bg-green-400 text-black text-base font-bold font-mono rounded hover:bg-green-300 transition-colors">
+              <a href="#projects" className="px-5 py-2.5 bg-lime-300 text-black text-base font-bold font-mono rounded hover:bg-lime-200 transition-colors">
                 view_projects()
               </a>
-              <a href={personal.resumeUrl} className="px-5 py-2.5 border border-white/20 text-gray-400 text-base font-mono rounded hover:border-green-400 hover:text-green-400 transition-colors">
+              <a href={personal.resumeUrl} className="px-5 py-2.5 border border-white/20 text-gray-400 text-base font-mono rounded hover:border-lime-300 hover:text-lime-300 transition-colors">
                 resume.pdf
               </a>
-              <a href={`mailto:${personal.email}`} className="px-5 py-2.5 border border-white/20 text-gray-400 text-base font-mono rounded hover:border-green-400 hover:text-green-400 transition-colors">
+              <a href={`mailto:${personal.email}`} className="px-5 py-2.5 border border-white/20 text-gray-400 text-base font-mono rounded hover:border-lime-300 hover:text-lime-300 transition-colors">
                 contact()
               </a>
             </div>
 
             {/* Social links */}
             <div className="flex items-center gap-4 text-sm font-mono flex-wrap">
-              <a href={personal.github}    target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-400 transition-colors">github</a>
+              <a href={personal.github}    target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-lime-300 transition-colors">github</a>
               <span className="text-gray-800">·</span>
-              <a href={personal.linkedin}  target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-400 transition-colors">linkedin</a>
+              <a href={personal.linkedin}  target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-lime-300 transition-colors">linkedin</a>
               <span className="text-gray-800">·</span>
-              <a href={personal.twitter}   target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-400 transition-colors">twitter</a>
+              <a href={personal.twitter}   target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-lime-300 transition-colors">twitter</a>
               <span className="text-gray-800">·</span>
-              <a href={personal.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-400 transition-colors">instagram</a>
+              <a href={personal.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-lime-300 transition-colors">instagram</a>
               <span className="text-gray-800">·</span>
-              <a href={personal.tableau}   target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-400 transition-colors">tableau</a>
+              <a href={personal.tableau}   target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-lime-300 transition-colors">tableau</a>
             </div>
           </div>
 
           {/* Right: photo + terrain (terrain hidden on mobile) */}
           <div className="md:col-span-2 flex flex-col items-center gap-5">
-            <div className="relative w-80 h-80 sm:w-[360px] sm:h-[360px] overflow-hidden border border-green-400/20 rounded-lg flex-shrink-0">
+            <div className="relative w-80 h-80 sm:w-[360px] sm:h-[360px] overflow-hidden border border-lime-300/20 rounded-lg flex-shrink-0">
               <Image src="/assets/headshot_circle.png" alt="Dr. Amol Prakash" fill className="object-cover" priority />
             </div>
             <div className="w-full rounded overflow-hidden hidden md:block" style={terrainVars}>
@@ -211,7 +211,7 @@ export default function Home() {
       {/* Projects */}
       <section id="projects" className="px-8 py-12 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
-          <p className="text-green-400/60 text-sm font-mono mb-2">// work</p>
+          <p className="text-lime-300/60 text-sm font-mono mb-2">// work</p>
           <h2 className="text-3xl font-bold text-white mb-10">Projects</h2>
 
           <div className="mb-10">
@@ -240,30 +240,30 @@ export default function Home() {
       {/* Published Apps */}
       <section id="apps" className="px-8 py-12 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
-          <p className="text-green-400/60 text-sm font-mono mb-2">// deployed</p>
+          <p className="text-lime-300/60 text-sm font-mono mb-2">// deployed</p>
           <h2 className="text-3xl font-bold text-white mb-8">Published Apps</h2>
           <div className="grid sm:grid-cols-2 gap-4">
             <a
               href="#"
               onClick={(e) => e.preventDefault()}
-              className="flex items-center gap-4 p-5 border border-white/10 rounded hover:border-green-400/40 hover:bg-white/[0.03] transition-all group cursor-pointer"
+              className="flex items-center gap-4 p-5 border border-white/10 rounded hover:border-lime-300/40 hover:bg-white/[0.03] transition-all group cursor-pointer"
               title="Coming soon — add your App Store developer link in data.ts"
             >
               <span className="text-3xl shrink-0">🍎</span>
               <div>
-                <p className="text-white font-medium text-base group-hover:text-green-400 transition-colors">Apple App Store</p>
+                <p className="text-white font-medium text-base group-hover:text-lime-300 transition-colors">Apple App Store</p>
                 <p className="text-gray-400 text-sm mt-1 font-mono">view published iOS apps →</p>
               </div>
             </a>
             <a
               href="#"
               onClick={(e) => e.preventDefault()}
-              className="flex items-center gap-4 p-5 border border-white/10 rounded hover:border-green-400/40 hover:bg-white/[0.03] transition-all group cursor-pointer"
+              className="flex items-center gap-4 p-5 border border-white/10 rounded hover:border-lime-300/40 hover:bg-white/[0.03] transition-all group cursor-pointer"
               title="Coming soon — add your Play Store developer link in data.ts"
             >
               <span className="text-3xl shrink-0">🤖</span>
               <div>
-                <p className="text-white font-medium text-base group-hover:text-green-400 transition-colors">Google Play Store</p>
+                <p className="text-white font-medium text-base group-hover:text-lime-300 transition-colors">Google Play Store</p>
                 <p className="text-gray-400 text-sm mt-1 font-mono">view published Android apps →</p>
               </div>
             </a>
@@ -274,7 +274,7 @@ export default function Home() {
       {/* Certifications */}
       <section id="certifications" className="px-8 py-12 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
-          <p className="text-green-400/60 text-sm font-mono mb-2">// credentials</p>
+          <p className="text-lime-300/60 text-sm font-mono mb-2">// credentials</p>
           <h2 className="text-3xl font-bold text-white mb-8">Certifications</h2>
           <div className="space-y-3">
             {certifications.map((cert) => (
@@ -293,11 +293,11 @@ export default function Home() {
       <footer className="px-8 py-6 border-t border-white/10 flex items-center justify-between text-sm text-gray-500 font-mono">
         <span>© {new Date().getFullYear()} Dr. Amol Prakash</span>
         <div className="flex gap-4 flex-wrap justify-end">
-          <a href={personal.github}    target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors">github</a>
-          <a href={personal.linkedin}  target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors">linkedin</a>
-          <a href={personal.twitter}   target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors">twitter</a>
-          <a href={personal.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors">instagram</a>
-          <a href={personal.leetcode}  target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors">leetcode</a>
+          <a href={personal.github}    target="_blank" rel="noopener noreferrer" className="hover:text-lime-300 transition-colors">github</a>
+          <a href={personal.linkedin}  target="_blank" rel="noopener noreferrer" className="hover:text-lime-300 transition-colors">linkedin</a>
+          <a href={personal.twitter}   target="_blank" rel="noopener noreferrer" className="hover:text-lime-300 transition-colors">twitter</a>
+          <a href={personal.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-lime-300 transition-colors">instagram</a>
+          <a href={personal.leetcode}  target="_blank" rel="noopener noreferrer" className="hover:text-lime-300 transition-colors">leetcode</a>
         </div>
       </footer>
     </div>
